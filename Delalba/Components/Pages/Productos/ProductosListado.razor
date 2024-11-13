@@ -1,0 +1,61 @@
+﻿@using Delalba.Components.Entities;
+@rendermode InteractiveServer
+
+<h3>ProductosListado</h3>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            @if (ColumnasAdicionales != null)
+            {
+                <td>
+                </td>
+            }
+            @if (MostrarBotones)
+            {
+                <th></th>
+            }
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Datos)
+        {
+            <tr>
+                <td>@item.Nombre</td>
+                <td>@item.Precio</td>
+                @if (ColumnasAdicionales != null)
+                {
+                    <td>
+                        @ColumnasAdicionales
+                    </td>
+                }
+                @if (MostrarBotones)
+                {
+                    <td>
+                        @* <button type="button" class="btn btn-link" @onclick="() => ModificarEvent.InvokeAsync(item)">Modificar</button>
+                        <button type="button" class="btn btn-link" @onclick="() => EliminarEvent.InvokeAsync(item)">Eliminar</button> *@
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<label>Cantidad de Productos: @Datos.Count</label>
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public List<ProductoEntity> Datos { get; set; }
+    [Parameter]
+    public bool MostrarBotones { get; set; } = false;
+    [Parameter]
+    public RenderFragment ColumnasAdicionales { get; set; } = null;
+    [Parameter]
+    public EventCallback<ProductoEntity> ModificarEvent { get; set; }
+    [Parameter]
+    public EventCallback<ProductoEntity> EliminarEvent { get; set; }
+}

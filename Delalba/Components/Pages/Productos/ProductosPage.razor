@@ -1,5 +1,41 @@
-﻿<h2> Productos </h2>
+﻿@page "/productos"
+@using Delalba.Components.Entities;
+@* @using Delalba.Components.Pages.Productos; *@
+@rendermode InteractiveServer
+
+<h1> Productos </h1>
+
+<button type="button" class="btn btn-primary" @onclick="Agregar">Agregar Película</button>
+
+<label>
+    Nombre
+    <input type="text" @bind="Nombre" />
+</label>
+
+<label>
+    Precio (en pesos)
+    <input type="number" @bind="Precio" />
+</label>
+
+@* @if (EstamosModificando == true)
+{
+    <button type="button" class="btn btn-primary" @onclick="GuardarCambios">GuardarCambios</button>
+}
+else
+{
+    <button type="button" class="btn btn-primary" @onclick="Agregar">Agregar Película</button>
+}
+<br />
+
+@if (MensajeError != "")
+{
+    <label style="color: red">Error al crear una película: @MensajeError</label>
+} *@
+
+<PeliculasListado Datos="PeliculasList" MostrarBotones="true" ModificarEvent="Modificar" EliminarEvent="Eliminar"> 
+    
+</PeliculasListado>
 
 @code {
-
+    
 }
