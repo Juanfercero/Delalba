@@ -13,12 +13,12 @@ namespace Delalba.Components.Pages.Productos
 
         private List<ProductoEntity> ProductosList = new();
 
-        //private PeliculaModal modal = default!;
+        private ProductoModal modal = default!;
 
-        //private void NuevaPelicula()
-        //{
-        //    modal.Open();
-        //}
+        private void NuevoProducto()
+        {
+            modal.Open();
+        }
 
         private void Agregar()
         {

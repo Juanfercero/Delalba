@@ -5,7 +5,7 @@
 
 <h1> Productos </h1>
 
-<label>
+@* <label>
     Nombre
     <input type="text" @bind="Nombre" />
 </label>
@@ -28,7 +28,11 @@ else
 @if (MensajeError != "")
 {
     <label style="color: red">Error al crear una película: @MensajeError</label>
-}
+} *@
+
+<ProductoModal @ref="modal"/>
+
+<button class="btn-primary" @onclick="NuevoProducto">Nuevo</button>
 
 <ProductosListado Datos="ProductosList" MostrarBotones="true" ModificarEvent="Modificar" EliminarEvent="Eliminar">
 
