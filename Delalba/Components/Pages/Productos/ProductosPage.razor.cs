@@ -6,6 +6,7 @@ namespace Delalba.Components.Pages.Productos
     {
         private string MensajeError = "";
         private bool EstamosModificando = false;
+
         private ProductoEntity? ProductoModificando;
 
         private int Precio = 0;
@@ -17,22 +18,30 @@ namespace Delalba.Components.Pages.Productos
 
         private void NuevoProducto()
         {
+            ProductoModificando = new ProductoEntity();
             modal.Open();
         }
 
-        private void Agregar()
+        private void Guardar()
         {
-            if (Nombre == "" || Precio == 0)
+            if (ProductoModificando.Nombre == "" || ProductoModificando.Precio == 0)
             {
                 MensajeError = "Faltaron datos por ingresar!";
             }
             else
             {
-                ProductosList.Add(new ProductoEntity(Nombre, Precio));
-                Nombre = "";
-                Precio = 0;
+                if (!EstamosModificando)
+                {
+                    ProductosList.Add(ProductoModificando);
+                }
+                else
+                {
+                    EstamosModificando = false;
+                }
 
+                ProductoModificando = null;
                 MensajeError = "";
+                modal.Close();
             }
 
         }
@@ -41,28 +50,29 @@ namespace Delalba.Components.Pages.Productos
             EstamosModificando = true;
             ProductoModificando = productoModificar;
 
-            Nombre = productoModificar.Nombre;
-            Precio = productoModificar.Precio;
+            modal.Open();
+            //Nombre = productoModificar.Nombre;
+            //Precio = productoModificar.Precio;
         }
 
-        private void GuardarCambios()
-        {
-            if (Nombre == "" || Precio == 0)
-            {
-                MensajeError = "Faltaron datos por ingresar!";
-            }
-            else
-            {
-                ProductoModificando.Nombre = Nombre;
-                ProductoModificando.Precio = Precio;
+        //private void GuardarCambios()
+        //{
+        //    if (Nombre == "" || Precio == 0)
+        //    {
+        //        MensajeError = "Faltaron datos por ingresar!";
+        //    }
+        //    else
+        //    {
+        //        ProductoModificando.Nombre = Nombre;
+        //        ProductoModificando.Precio = Precio;
 
-                Nombre = "";
-                Precio = 0;
+        //        Nombre = "";
+        //        Precio = 0;
 
-                EstamosModificando = false;
-                ProductoModificando = null;
-            }
-        }
+        //        EstamosModificando = false;
+        //        ProductoModificando = null;
+        //    }
+        //}
 
         private void Eliminar(ProductoEntity productoEliminar)
         {

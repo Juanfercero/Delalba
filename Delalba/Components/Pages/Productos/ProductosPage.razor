@@ -30,9 +30,16 @@ else
     <label style="color: red">Error al crear una película: @MensajeError</label>
 } *@
 
-<ProductoModal @ref="modal"/>
+<ProductoModal @ref="modal" Data="ProductoModificando" GuardarEventCallback="Guardar" Modificando ="EstamosModificando"/>
 
-<button class="btn-primary" @onclick="NuevoProducto">Nuevo</button>
+<br />
+
+<h3>Listado de Productos</h3>
+
+<button type="button" class="btn btn-primary" @onclick="NuevoProducto">Nuevo</button>
+
+<br />
+<br />
 
 <ProductosListado Datos="ProductosList" MostrarBotones="true" ModificarEvent="Modificar" EliminarEvent="Eliminar">
 

@@ -1,25 +1,45 @@
-﻿@rendermode InteractiveServer
+﻿@using Delalba.Components.Entities;
+@rendermode InteractiveServer
 
 <!-- Modal -->
 <div class="modal @StatusModal" tabindex="-1" style="display:@StyleDisplay">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva pelicula</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">@(Modificando ? "Modificando" : "Nuevo") Producto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @onclick="Close"></button>
             </div>
             <div class="modal-body">
-                ...
+                @if(Data != null)
+                {
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-nombre" class="col-form-label">Nombre del Producto:</label>
+                            <input type="text" class="form-control" id="recipient-nombre" @bind="Data.Nombre">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-precio" class="col-form-label">Precio:</label>
+                            <input type="text" class="form-control" id="message-precio" @bind="Data.Precio"></input>
+                        </div>
+                    </form>
+                }
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @onclick="Close">Cancelar</button>
+                <button type="button" class="btn btn-primary" @onclick="() => GuardarEventCallback.InvokeAsync()">Guardar</button>
             </div>
         </div>
     </div>
 </div>
 
 @code {
+    [Parameter]
+    public ProductoEntity? Data { get; set; }
+    [Parameter]
+    public EventCallback GuardarEventCallback { get; set; }
+    [Parameter]
+    public bool Modificando { get; set; } = false;
+
     private string StatusModal = "fade";
     private string StyleDisplay = "none";
 
