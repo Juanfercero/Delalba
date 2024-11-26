@@ -1,11 +1,17 @@
 using Delalba.Components;
 using Delalba.Components.Account;
+using Delalba.Context;
 using Delalba.Data;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//builder.Services.AddDbContext<DelalbaContext>(options =>
+//{
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("Defualt"));
+//});
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

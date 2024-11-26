@@ -1,9 +1,15 @@
-﻿using Delalba.Components.Entities;
+﻿//using Delalba.Components.Entities;
+using Delalba.Model;
+using Microsoft.AspNetCore.Components;
+using Delalba.Data;
 
 namespace Delalba.Components.Pages.Productos
 {
     public partial class ProductosPage
     {
+        [Inject]
+        private ApplicationDbContext context {  get; set; }
+
         private string MensajeError = "";
         private bool EstamosModificando = false;
 
@@ -12,9 +18,20 @@ namespace Delalba.Components.Pages.Productos
         private int Precio = 0;
         private string Nombre = "";
 
-        private List<ProductoEntity> ProductosList = new();
+        private List<ProductoEntity> ProductosList;
 
         private ProductoModal modal = default!;
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            GetData();
+        }
+
+        private void GetData()
+        {
+            ProductosList = context.Productos.ToList();
+        }
 
         private void NuevoProducto()
         {
@@ -32,10 +49,16 @@ namespace Delalba.Components.Pages.Productos
             {
                 if (!EstamosModificando)
                 {
-                    ProductosList.Add(ProductoModificando);
+                    context.Productos.Add(ProductoModificando);
+                    var actu = context.SaveChanges();
+
+                    GetData();
                 }
                 else
                 {
+                    context.Entry(ProductoModificando).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    context.SaveChanges();
+                    GetData();
                     EstamosModificando = false;
                 }
 
@@ -76,7 +99,9 @@ namespace Delalba.Components.Pages.Productos
 
         private void Eliminar(ProductoEntity productoEliminar)
         {
-            ProductosList.Remove(productoEliminar);
+            context.Productos.Remove(productoEliminar);
+            context.SaveChanges();
+            GetData();
         }
     }
 }

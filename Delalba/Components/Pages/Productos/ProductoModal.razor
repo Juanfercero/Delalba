@@ -1,4 +1,5 @@
-﻿@using Delalba.Components.Entities;
+﻿@* @using Delalba.Components.Entities; *@
+
 @rendermode InteractiveServer
 
 <!-- Modal -->
@@ -19,7 +20,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="message-precio" class="col-form-label">Precio:</label>
-                            <input type="text" class="form-control" id="message-precio" @bind="Data.Precio"></input>
+                            <input type="text" class="form-control" id="message-precio" @bind="Data.Precio">
                         </div>
                     </form>
                 }
