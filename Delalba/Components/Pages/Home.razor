@@ -1,7 +1,19 @@
 ﻿@page "/"
+@inject NavigationManager navigation
+@rendermode InteractiveServer
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Tienda de Productos!</h1>
 
-Welcome to your new app.
+<AuthorizeView>
+    <Authorized>
+        <button @onclick="IrMaestro"> Ir a Maestro</button>
+    </Authorized>
+</AuthorizeView>
+
+@code {
+    private void IrMaestro(){
+        navigation.NavigateTo("productos");
+    }
+}
