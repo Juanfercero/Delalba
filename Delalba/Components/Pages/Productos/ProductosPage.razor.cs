@@ -18,9 +18,11 @@ namespace Delalba.Components.Pages.Productos
         private int Precio = 0;
         private string Nombre = "";
 
-        private List<ProductoEntity> ProductosList;
+        public List<ProductoEntity> ProductosList;
 
         private ProductoModal modal = default!;
+
+        public string filtroNombreProducto = "";
 
         protected override void OnInitialized()
         {
@@ -102,6 +104,29 @@ namespace Delalba.Components.Pages.Productos
             context.Productos.Remove(productoEliminar);
             context.SaveChanges();
             GetData();
+        }
+
+        private void BuscarProducto()
+        {
+            GetData();
+
+            ProductosList.Select(c => new ProductoEntity()
+            {
+                Nombre = c.Nombre,
+                Precio = c.Precio,
+            }).ToList();
+
+            if (filtroNombreProducto != "")
+            {
+                ProductosList = ProductosList.Where(c => c.Nombre.Contains(filtroNombreProducto)).ToList();
+            }
+
+            //if (filtroNombreProducto != "")
+            //{
+            //    ProductosList = ProductosList.Where(c => c.Nombre == filtroNombreProducto).ToList();
+            //}
+
+            context.SaveChanges();
         }
     }
 }

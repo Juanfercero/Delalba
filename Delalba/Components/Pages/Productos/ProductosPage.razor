@@ -37,6 +37,8 @@ else
 
 <h3>Listado de Productos</h3>
 
+Nombre de Producto <input type="text" placeholder="(Comience con Mayúscula)" @bind-value="filtroNombreProducto" />
+<button type="button" class="btn btn-primary" @onclick="BuscarProducto"> Buscar </button>
 <button type="button" class="btn btn-primary" @onclick="NuevoProducto">Nuevo</button>
 
 <br />
