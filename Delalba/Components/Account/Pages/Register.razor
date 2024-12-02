@@ -14,6 +14,8 @@
 @inject ILogger<Register> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
+@inject RoleManager<IdentityRole> RolesManager
+@inject ApplicationDbContext context
 
 <PageTitle>Register</PageTitle>
 
@@ -65,6 +67,18 @@
 
     private string? Message => identityErrors is null ? null : $"Error: {string.Join(", ", identityErrors.Select(error => error.Description))}";
 
+    private List<ProductoEntity>? productosList;
+    private List<IdentityRole> rolesList;
+    private string Adminn = "Admin";
+    private string Clientee = "Cliente";
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        productosList = context.Productos.ToList();
+        rolesList = RolesManager.Roles.ToList();
+    }
+
     public async Task RegisterUser(EditContext editContext)
     {
         var user = CreateUser();
@@ -78,6 +92,13 @@
         {
             identityErrors = result.Errors;
             return;
+        }
+
+        if (user.Email == "juanfer.cero@gmail.com" || user.Email == "alpacaKlan@gmail.com")
+        {
+            await UserManager.AddToRoleAsync(user, Adminn);
+        } else {
+            await UserManager.AddToRoleAsync(user, Clientee);
         }
 
         Logger.LogInformation("User created a new account with password.");

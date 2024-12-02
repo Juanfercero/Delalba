@@ -2,7 +2,7 @@
 @* @using Delalba.Components.Entities; *@
 @using Delalba.Components.Pages.Productos;
 @rendermode InteractiveServer
-@attribute [Authorize]
+@attribute [Authorize(Roles ="Admin")]
 
 <h1> Productos </h1>
 
