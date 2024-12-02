@@ -33,6 +33,7 @@ namespace Delalba.Components.Pages.Productos
         private void GetData()
         {
             ProductosList = context.Productos.ToList();
+            ProductosList = ProductosList.OrderBy(p => p.Nombre).ToList();
         }
 
         private void NuevoProducto()

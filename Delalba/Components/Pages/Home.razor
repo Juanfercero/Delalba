@@ -6,14 +6,25 @@
 
 <h1>Tienda de Productos!</h1>
 
-<AuthorizeView>
+<AuthorizeView Roles="Admin">
     <Authorized>
         <button @onclick="IrMaestro"> Ir a Maestro</button>
     </Authorized>
 </AuthorizeView>
 
+<AuthorizeView>
+    <NotAuthorized>
+        <p>Registrese o ingrese al sistema para más funcionalidad</p>
+        <button @onclick="Login">Registrarse</button>
+    </NotAuthorized>
+</AuthorizeView>
+
 @code {
     private void IrMaestro(){
         navigation.NavigateTo("productos");
+    }
+
+    private void Login(){
+        navigation.NavigateTo("Account/Register");
     }
 }
