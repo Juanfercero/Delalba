@@ -1,5 +1,6 @@
 ﻿@* @using Delalba.Components.Entities; *@
 @using Delalba.Components.Pages.Productos;
+@using Delalba.Components.Pages;
 @rendermode InteractiveServer
 
 
@@ -39,6 +40,12 @@
                         <button type="button" class="btn btn-link" @onclick="() => EliminarEvent.InvokeAsync(item)">Eliminar</button>
                     </td>
                 }
+                @if (MostrarBotonCarrito)
+                {
+                    <td>
+                        <button type="button" class="btn btn-link" @onclick="() => AñadirAlCarritoEvent.InvokeAsync(item)">Añadir al Carrito</button>
+                    </td>
+                }
             </tr>
         }
     </tbody>
@@ -56,9 +63,13 @@
     [Parameter]
     public bool MostrarBotones { get; set; } = false;
     [Parameter]
+    public bool MostrarBotonCarrito { get; set; } = false;
+    [Parameter]
     public RenderFragment ColumnasAdicionales { get; set; } = null;
     [Parameter]
     public EventCallback<ProductoEntity> ModificarEvent { get; set; }
     [Parameter]
     public EventCallback<ProductoEntity> EliminarEvent { get; set; }
+    [Parameter]
+    public EventCallback<ProductoEntity> AñadirAlCarritoEvent { get; set; }
 }

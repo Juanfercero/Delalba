@@ -7,5 +7,7 @@
         public string Nombre { get; set; } = string.Empty;
 
         public int Precio { get; set; } = 0;
+
+        public byte[]? Foto { get; set; }
     }
 }

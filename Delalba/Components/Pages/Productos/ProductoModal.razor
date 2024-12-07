@@ -22,6 +22,11 @@
                             <label for="message-precio" class="col-form-label">Precio:</label>
                             <input type="text" class="form-control" id="message-precio" @bind="Data.Precio">
                         </div>
+                        <div class="mb-3">
+                            <label for="message-foto" class="col-form-label">Foto:</label>
+                            <inputFile type="file" class="form-control" id="message-foto" @bind="PictureFile" />
+                            @* <input type="file" class="form-control" id="message-foto" @bind="PictureFile" /> *@
+                        </div>
                     </form>
                 }
             </div>
@@ -40,9 +45,12 @@
     public EventCallback GuardarEventCallback { get; set; }
     [Parameter]
     public bool Modificando { get; set; } = false;
+    [Parameter]
+    public string PictureFile { get; set; } = "";
 
     private string StatusModal = "fade";
     private string StyleDisplay = "none";
+
 
     public void Open()
     {
@@ -56,5 +64,10 @@
         StatusModal = "fade";
         StyleDisplay = "none";
         StateHasChanged();
+    }
+
+    private void SelectedPicture(InputFileChangeEventArgs args)
+    {
+        byte[] arrayFile = File.ReadAllBytes(PictureFile);
     }
 }

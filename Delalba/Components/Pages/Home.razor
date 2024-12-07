@@ -1,10 +1,16 @@
 ﻿@page "/"
 @inject NavigationManager navigation
 @rendermode InteractiveServer
+@using Delalba.Components.Pages.Productos
+
+@* @using Microsoft.AspNetCore.Components; *@
+@using Delalba.Data;
 
 <PageTitle>Home</PageTitle>
 
 <h1>Tienda de Productos!</h1>
+
+<ProductosListado Datos="@ProductosList" MostrarBotones="false" MostrarBotonCarrito="true" AñadirAlCarritoEvent="AñadirAlCarrito"/>
 
 <AuthorizeView Roles="Admin">
     <Authorized>
@@ -20,11 +26,52 @@
 </AuthorizeView>
 
 @code {
-    private void IrMaestro(){
+    //VARIABLES
+    private ProductoEntity? ProductoCarrito;
+
+    public List<ProductoEntity>? CarritoList = new();
+
+    //METODOS
+    private void AñadirAlCarrito(ProductoEntity productoCarrito)
+    {
+        ProductoCarrito = productoCarrito;
+        CarritoList.Add(ProductoCarrito);
+        context.SaveChanges();
+        GetData();
+    }
+
+    //NAVIGATE
+    private void IrMaestro()
+    {
         navigation.NavigateTo("productos");
     }
 
-    private void Login(){
+    private void Login()
+    {
         navigation.NavigateTo("Account/Register");
+    }
+
+
+
+    // COPIED FROM PRODUCTOS PAGE
+    [Inject]
+    private ApplicationDbContext context { get; set; }
+
+    public List<ProductoEntity> ProductosList;
+
+    // (variable para filtrar producto)
+    // public string filtroNombreProducto = "";
+    
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        GetData();
+    }
+
+    private void GetData()
+    {
+        ProductosList = context.Productos.ToList();
+        ProductosList = ProductosList.OrderBy(p => p.Nombre).ToList();
     }
 }
