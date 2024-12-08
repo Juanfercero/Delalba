@@ -42,9 +42,20 @@
                 }
                 @if (MostrarBotonCarrito)
                 {
-                    <td>
-                        <button type="button" class="btn btn-link" @onclick="() => AñadirAlCarritoEvent.InvokeAsync(item)">Añadir al Carrito</button>
-                    </td>
+                    <AuthorizeView>
+                        <Authorized>
+                            <td>
+                                <button type="button" class="btn btn-link" @onclick="() => AñadirAlCarritoEvent.InvokeAsync(item)">Añadir al Carrito</button>
+                            </td>
+                        </Authorized>
+                    </AuthorizeView>
+                    <AuthorizeView>
+                        <NotAuthorized>
+                            <td>
+                                <button type="button" class="btn btn-link" @onclick="() => LoginEvent.InvokeAsync()">Añadir al Carrito</button>
+                            </td>
+                        </NotAuthorized>
+                    </AuthorizeView>
                 }
             </tr>
         }
@@ -72,4 +83,6 @@
     public EventCallback<ProductoEntity> EliminarEvent { get; set; }
     [Parameter]
     public EventCallback<ProductoEntity> AñadirAlCarritoEvent { get; set; }
+    [Parameter]
+    public EventCallback<ProductoEntity> LoginEvent { get; set; }
 }

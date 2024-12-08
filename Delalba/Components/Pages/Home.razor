@@ -8,9 +8,51 @@
 
 <PageTitle>Home</PageTitle>
 
+<div class="top-row px-4">
+    <button type="button" class="btn btn-primary" @onclick="OpenCarrito"> Carrito </button>
+</div>
+
 <h1>Tienda de Productos!</h1>
 
-<ProductosListado Datos="@ProductosList" MostrarBotones="false" MostrarBotonCarrito="true" AñadirAlCarritoEvent="AñadirAlCarrito"/>
+<div class="modal @StatusModal" tabindex="-1" style="display:@StyleDisplay">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">CARRITO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @onclick="CloseCarrito"></button>
+            </div>
+            <div class="modal-body">
+                @if (CarritoNoNull != false)
+                {
+                    @foreach (var item in CarritoList)
+                    {
+                        <table class="table table-striped table-hover">
+                            <tbody>
+                                <tr>
+                                    <td>@item.Nombre</td>
+                                    <td>$@item.Precio</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    }
+                }
+                else
+                {
+                    <p>El carrito está vacío</p>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @onclick="CloseCarrito">Close</button>
+                <button type="button" class="btn btn-primary" @onclick="CloseCarrito">Hacer pedido</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* 
+CarritoList != null *@
+
+<ProductosListado Datos="@ProductosList" MostrarBotones="false" MostrarBotonCarrito="true" AñadirAlCarritoEvent="AñadirAlCarrito" LoginEvent="Login"/>
 
 <AuthorizeView Roles="Admin">
     <Authorized>
@@ -26,6 +68,25 @@
 </AuthorizeView>
 
 @code {
+    //CARRITO HTML
+    private string StatusModal = "fade";
+    private string StyleDisplay = "none";
+    private bool CarritoNoNull = false;
+
+    public void OpenCarrito()
+    {
+        StatusModal = "show";
+        StyleDisplay = "block";
+        StateHasChanged();
+    }
+
+    public void CloseCarrito()
+    {
+        StatusModal = "fade";
+        StyleDisplay = "none";
+        StateHasChanged();
+    }
+
     //VARIABLES
     private ProductoEntity? ProductoCarrito;
 
@@ -36,6 +97,7 @@
     {
         ProductoCarrito = productoCarrito;
         CarritoList.Add(ProductoCarrito);
+        CarritoNoNull = true;
         context.SaveChanges();
         GetData();
     }

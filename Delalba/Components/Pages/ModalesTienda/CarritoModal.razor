@@ -1,0 +1,10 @@
+﻿@rendermode InteractiveServer
+
+<button type="button" class="btn btn-primary" @onclick="OpenCarritoEvent"> Carrito </button>
+
+
+
+@code {
+    [Parameter]
+    public EventCallback OpenCarritoEvent { get; set; }
+}
