@@ -22,35 +22,48 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @onclick="CloseCarrito"></button>
             </div>
             <div class="modal-body">
-                @if (CarritoNoNull != false)
+                @if (CarritoNoNull != false && CarritoList != null && CarritoList.Count != 0)
                 {
-                    @foreach (var item in CarritoList)
-                    {
-                        <table class="table table-striped table-hover">
-                            <tbody>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                @* <th>N</th>
+                                <th>P</th> *@
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in CarritoList)
+                            {
                                 <tr>
                                     <td>@item.Nombre</td>
                                     <td>$@item.Precio</td>
+                                    <button type="button" class="btn btn-link" @onclick="() => EliminarProducto(item)">Eliminar</button>
                                 </tr>
-                            </tbody>
-                        </table>
-                    }
+                                PrecioTotal = PrecioTotal + @item.Precio;
+                            }
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <td>Total</td>
+                                <td>$@PrecioTotal</td>
+                            </tr>
+                        </thead>
+                    </table>
                 }
                 else
                 {
-                    <p>El carrito está vacío</p>
+                    <p>El carrito está vacío.</p>
                 }
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @onclick="CloseCarrito">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @onclick="CloseCarrito">Cerrar</button>
                 <button type="button" class="btn btn-primary" @onclick="CloseCarrito">Hacer pedido</button>
             </div>
         </div>
     </div>
 </div>
 
-@* 
-CarritoList != null *@
 
 <ProductosListado Datos="@ProductosList" MostrarBotones="false" MostrarBotonCarrito="true" AñadirAlCarritoEvent="AñadirAlCarrito" LoginEvent="Login"/>
 
@@ -77,6 +90,7 @@ CarritoList != null *@
     {
         StatusModal = "show";
         StyleDisplay = "block";
+        PrecioTotal = 0;
         StateHasChanged();
     }
 
@@ -87,10 +101,20 @@ CarritoList != null *@
         StateHasChanged();
     }
 
+    private void EliminarProducto(ProductoEntity productoEliminar)
+    {
+        CarritoList.Remove(productoEliminar);
+        PrecioTotal = 0;
+        context.SaveChanges();
+        GetData();
+    }
+
     //VARIABLES
     private ProductoEntity? ProductoCarrito;
 
     public List<ProductoEntity>? CarritoList = new();
+
+    private int PrecioTotal = 0;
 
     //METODOS
     private void AñadirAlCarrito(ProductoEntity productoCarrito)
