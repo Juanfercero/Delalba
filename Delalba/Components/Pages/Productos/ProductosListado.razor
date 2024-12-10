@@ -25,6 +25,9 @@
         @foreach (var item in Datos)
         {
             <tr>
+                @if (item.Nombre == "hola"){
+
+                }
                 <td>@item.Nombre</td>
                 <td>$@item.Precio</td>
                 @if (ColumnasAdicionales != null)

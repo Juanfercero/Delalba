@@ -14,6 +14,7 @@
 
 <h1>Tienda de Productos!</h1>
 
+@* Modal de Carrito *@
 <div class="modal @StatusModal" tabindex="-1" style="display:@StyleDisplay">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -58,7 +59,42 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @onclick="CloseCarrito">Cerrar</button>
-                <button type="button" class="btn btn-primary" @onclick="CloseCarrito">Hacer pedido</button>
+                @if (CarritoNoNull != false && CarritoList != null && CarritoList.Count != 0)
+                {
+                    <button type="button" class="btn btn-primary" @onclick="OpenConfirmacion">Hacer pedido</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal de Confirmacion *@
+<div class="modal @StatusConfirmacion" tabindex="-1" style="display:@StyleDisplayConfirmacion">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">CARRITO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @onclick="CloseConfirmacion"></button>
+            </div>
+            <div class="modal-body">
+                @if (CarritoNoNull != false && CarritoList != null && CarritoList.Count != 0)
+                {
+                    <p>Su pedido será armado y debe pasarse a buscar al local.</p>
+                    <a href="https://maps.app.goo.gl/NnHPDzfp5Szg2w7P8" target="_blank"> Ver local en Google Maps </a>
+                    <p></p>
+                    <p>¿Desea confirmar?</p>
+                }
+                else
+                {
+                    <p>El carrito está vacío.</p>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @onclick="CloseConfirmacion">Cerrar</button>
+                @if (CarritoNoNull != false && CarritoList != null && CarritoList.Count != 0)
+                {
+                    <button type="button" class="btn btn-primary" @onclick="ConfirmarPedido">Confirmar pedido</button>
+                }
             </div>
         </div>
     </div>
@@ -107,6 +143,34 @@
         PrecioTotal = 0;
         context.SaveChanges();
         GetData();
+    }
+
+    //MODAL DE CONFIRMACIÓN
+    private string StatusConfirmacion = "fade";
+    private string StyleDisplayConfirmacion = "none";
+
+    public void OpenConfirmacion()
+    {
+        StatusConfirmacion = "show";
+        StyleDisplayConfirmacion = "block";
+        StatusModal = "fade";
+        StyleDisplay = "none";
+        StateHasChanged();
+    }
+
+    public void CloseConfirmacion()
+    {
+        StatusConfirmacion = "fade";
+        StyleDisplayConfirmacion = "none";
+        StateHasChanged();
+    }
+
+    public void ConfirmarPedido()
+    {
+        StatusConfirmacion = "fade";
+        StyleDisplayConfirmacion = "none";
+        CarritoList.Clear();
+        StateHasChanged();
     }
 
     //VARIABLES
