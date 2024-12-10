@@ -9,5 +9,7 @@
         public int Precio { get; set; } = 0;
 
         public byte[]? Foto { get; set; }
+
+        public bool Activado { get; set; } = true;
     }
 }

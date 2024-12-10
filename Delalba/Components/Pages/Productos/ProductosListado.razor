@@ -24,43 +24,51 @@
     <tbody>
         @foreach (var item in Datos)
         {
-            <tr>
-                @if (item.Nombre == "hola"){
+            @if (item.Activado == true || MostrarBotones == true)
+            {
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td>$@item.Precio</td>
 
-                }
-                <td>@item.Nombre</td>
-                <td>$@item.Precio</td>
-                @if (ColumnasAdicionales != null)
-                {
-                    <td>
-                        @ColumnasAdicionales
-                    </td>
-                }
-                @if (MostrarBotones)
-                {
-                    <td>
-                        <button type="button" class="btn btn-link" @onclick="() => ModificarEvent.InvokeAsync(item)">Modificar</button>
-                        <button type="button" class="btn btn-link" @onclick="() => EliminarEvent.InvokeAsync(item)">Eliminar</button>
-                    </td>
-                }
-                @if (MostrarBotonCarrito)
-                {
-                    <AuthorizeView>
-                        <Authorized>
-                            <td>
-                                <button type="button" class="btn btn-link" @onclick="() => AñadirAlCarritoEvent.InvokeAsync(item)">Añadir al Carrito</button>
-                            </td>
-                        </Authorized>
-                    </AuthorizeView>
-                    <AuthorizeView>
-                        <NotAuthorized>
-                            <td>
-                                <button type="button" class="btn btn-link" @onclick="() => LoginEvent.InvokeAsync()">Añadir al Carrito</button>
-                            </td>
-                        </NotAuthorized>
-                    </AuthorizeView>
-                }
-            </tr>
+                    @if (ColumnasAdicionales != null)
+                    {
+                        <td>
+                            @ColumnasAdicionales
+                        </td>
+                    }
+                    @if (MostrarBotones)
+                    {
+                        <td>
+                            <button type="button" class="btn btn-link" @onclick="() => ModificarEvent.InvokeAsync(item)">Modificar</button>
+                            <button type="button" class="btn btn-link" @onclick="() => EliminarEvent.InvokeAsync(item)">Eliminar</button>
+                            @if (item.Activado == true){
+                                <button type="button" class="btn btn-link" @onclick="() => DesactivarEvent.InvokeAsync(item)">Desactivar</button>
+                            }
+                            else{
+                                <button type="button" class="btn btn-link" @onclick="() => ActivarEvent.InvokeAsync(item)">Activar</button>
+                            }
+                            
+                        </td>
+                    }
+                    @if (MostrarBotonCarrito)
+                    {
+                        <AuthorizeView>
+                            <Authorized>
+                                <td>
+                                    <button type="button" class="btn btn-link" @onclick="() => AñadirAlCarritoEvent.InvokeAsync(item)">Añadir al Carrito</button>
+                                </td>
+                            </Authorized>
+                        </AuthorizeView>
+                        <AuthorizeView>
+                            <NotAuthorized>
+                                <td>
+                                    <button type="button" class="btn btn-link" @onclick="() => LoginEvent.InvokeAsync()">Añadir al Carrito</button>
+                                </td>
+                            </NotAuthorized>
+                        </AuthorizeView>
+                    }
+                </tr>
+            }
         }
     </tbody>
 </table>
@@ -84,6 +92,10 @@
     public EventCallback<ProductoEntity> ModificarEvent { get; set; }
     [Parameter]
     public EventCallback<ProductoEntity> EliminarEvent { get; set; }
+    [Parameter]
+    public EventCallback<ProductoEntity> DesactivarEvent { get; set; }
+    [Parameter]
+    public EventCallback<ProductoEntity> ActivarEvent { get; set; }
     [Parameter]
     public EventCallback<ProductoEntity> AñadirAlCarritoEvent { get; set; }
     [Parameter]

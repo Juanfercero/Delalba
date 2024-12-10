@@ -107,6 +107,22 @@ namespace Delalba.Components.Pages.Productos
             GetData();
         }
 
+        private void Desactivar(ProductoEntity productoDesactivar)
+        {
+            ProductoModificando = productoDesactivar;
+            ProductoModificando.Activado = false;
+            context.Entry(ProductoModificando).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            context.SaveChanges();
+            GetData();
+        }
+
+        private void Activar(ProductoEntity productoActivar)
+        {
+            productoActivar.Activado = true;
+            context.SaveChanges();
+            GetData();
+        }
+
         private void BuscarProducto()
         {
             GetData();
