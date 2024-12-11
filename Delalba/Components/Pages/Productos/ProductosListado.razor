@@ -76,7 +76,11 @@
 <hr />
 <br />
 
-<label>Cantidad de Productos: @Datos.Count</label>
+@if (MostrarBotones)
+{
+    <label>Cantidad de Productos: @Datos.Count</label>
+}
+
 
 @code {
     [Parameter]

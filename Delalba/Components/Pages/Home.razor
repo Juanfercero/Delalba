@@ -8,11 +8,19 @@
 
 <PageTitle>Home</PageTitle>
 
-<div class="top-row px-4">
-    <button type="button" class="btn btn-primary" @onclick="OpenCarrito"> Carrito </button>
-</div>
+<br />
 
-<h1>Tienda de Productos!</h1>
+<h1>Tienda de Productos Delalba!</h1>
+
+<br />
+<hr />
+
+Nombre de Producto
+<input type="text" placeholder="(Comience con Mayúscula)" @bind-value="filtroNombreProducto" />
+<button type="button" class="btn btn-primary" @onclick="BuscarProducto"> Buscar </button>
+<button type="button" class="btn btn-primary" @onclick="OpenCarrito"> Carrito </button>
+
+<hr />
 
 @* Modal de Carrito *@
 <div class="modal @StatusModal" tabindex="-1" style="display:@StyleDisplay">
@@ -117,6 +125,32 @@
 </AuthorizeView>
 
 @code {
+    //BUSCAR
+    public string filtroNombreProducto = "";
+
+    private void BuscarProducto()
+    {
+        GetData();
+
+        ProductosList.Select(c => new ProductoEntity()
+            {
+                Nombre = c.Nombre,
+                Precio = c.Precio,
+            }).ToList();
+
+        if (filtroNombreProducto != "")
+        {
+            ProductosList = ProductosList.Where(c => c.Nombre.Contains(filtroNombreProducto)).ToList();
+        }
+
+        //if (filtroNombreProducto != "")
+        //{
+        //    ProductosList = ProductosList.Where(c => c.Nombre == filtroNombreProducto).ToList();
+        //}
+
+        context.SaveChanges();
+    }
+
     //CARRITO HTML
     private string StatusModal = "fade";
     private string StyleDisplay = "none";
