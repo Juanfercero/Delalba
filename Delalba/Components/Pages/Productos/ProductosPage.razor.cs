@@ -20,7 +20,7 @@ namespace Delalba.Components.Pages.Productos
 
         public List<ProductoEntity> ProductosList;
 
-        private ProductoModal modal = default!;
+        private SegundoProductoModal modal = default!;
 
         public string filtroNombreProducto = "";
 

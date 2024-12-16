@@ -56,6 +56,15 @@ builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSe
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
+//Timeout del circuito de SignalR (Chat GPT)
+builder.Services.AddServerSideBlazor()
+    .AddHubOptions(options =>
+    {
+        options.ClientTimeoutInterval = TimeSpan.FromMinutes(3); // Aumenta el tiempo de espera
+        options.HandshakeTimeout = TimeSpan.FromMinutes(2); // Ajusta el tiempo de handshake
+    });
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

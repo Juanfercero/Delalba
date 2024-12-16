@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using Delalba.Components.Pages;
 
 namespace Delalba.Components.Pages
 {
@@ -21,11 +22,11 @@ namespace Delalba.Components.Pages
             //API entre las comillas
             var client = new SendGridClient("");
 
-            var from = new EmailAddress("juanfer.cero@gmail.com", "juancho9955");
-            var subject = "Hello World from the Twilio SendGrid CSharp Library Helper!";
-            var to = new EmailAddress("juanfer.cero@gmail.com", "juancho9955");
-            var plainTextContent = "Hello, Email from the helper [SendSingleEmailAsync]!";
-            var htmlContent = "<strong>Hello, Email from the helper! [SendSingleEmailAsync]</strong>";
+            var from = new EmailAddress("juanfer.cero@gmail.com", "Juan");
+            var subject = "Nuevo pedido de Delalba!";
+            var to = new EmailAddress("nicoproserpioriver@gmail.com", "Nicolas");
+            var plainTextContent = $"Se piden estos productos: {ProductosMail}";
+            var htmlContent = "<strong></strong>";
 
             //Con el MailHelper se construye el correo
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
@@ -38,5 +39,6 @@ namespace Delalba.Components.Pages
             //Console.ReadKey();
 
         }
+
     }
 }

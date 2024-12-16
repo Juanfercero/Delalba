@@ -182,6 +182,7 @@ Nombre de Producto
     //MODAL DE CONFIRMACIÓN
     private string StatusConfirmacion = "fade";
     private string StyleDisplayConfirmacion = "none";
+    public static string ProductosMail = "";
 
     public void OpenConfirmacion()
     {
@@ -203,6 +204,12 @@ Nombre de Producto
     {
         StatusConfirmacion = "fade";
         StyleDisplayConfirmacion = "none";
+
+        foreach (var item in CarritoList)
+        {
+            ProductosMail = $"{ProductosMail + item.Nombre}";
+        }
+
         Execute();
         CarritoList.Clear();
         StateHasChanged();

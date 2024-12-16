@@ -23,8 +23,13 @@
                             <input type="text" class="form-control" id="message-precio" @bind="Data.Precio">
                         </div>
                         <div class="mb-3">
-                            <label for="message-foto" class="col-form-label">Foto:</label>
-                            <inputFile type="file" class="form-control" id="message-foto" @bind="PictureFile" />
+                            @* <InputFile OnChange="HandleFileSelected" />
+                            @if (imageData != null)
+                            {
+                                <p>Imagen seleccionada con éxito. Tamaño: @imageData.Length bytes</p>
+                            } *@
+                            @* <label for="message-foto" class="col-form-label">Foto:</label>
+                            <inputFile type="file" class="form-control" id="message-foto" @bind="imageData" /> *@
                             @* <input type="file" class="form-control" id="message-foto" @bind="PictureFile" /> *@
                         </div>
                     </form>
@@ -45,8 +50,13 @@
     public EventCallback GuardarEventCallback { get; set; }
     [Parameter]
     public bool Modificando { get; set; } = false;
-    [Parameter]
-    public string PictureFile { get; set; } = "";
+
+    // //No se usa
+    // [Parameter]
+    // public string PictureFile { get; set; } = "";
+
+    // private byte[]? imageData;
+
 
     private string StatusModal = "fade";
     private string StyleDisplay = "none";
@@ -66,8 +76,25 @@
         StateHasChanged();
     }
 
-    private void SelectedPicture(InputFileChangeEventArgs args)
-    {
-        byte[] arrayFile = File.ReadAllBytes(PictureFile);
-    }
+    // //No se usa
+    // private void SelectedPicture(InputFileChangeEventArgs args)
+    // {
+    //     byte[] arrayFile = File.ReadAllBytes(PictureFile);
+    // }
+
+    // // Método para manejar el cambio de archivo (cuando se selecciona la imagen)
+    // private async Task HandleFileSelected(InputFileChangeEventArgs e)
+    // {
+    //     var file = e.File;
+
+    //     if (file != null)
+    //     {
+    //         // Lee el archivo como un arreglo de bytes
+    //         var buffer = new byte[file.Size];
+    //         await file.OpenReadStream().ReadAsync(buffer);
+    //         imageData = buffer; // Almacena el arreglo de bytes
+    //     }
+    // }
+
+    
 }
