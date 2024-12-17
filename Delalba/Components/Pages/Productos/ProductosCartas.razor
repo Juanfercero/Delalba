@@ -1,10 +1,66 @@
-﻿@* @using Delalba.Components.Entities; *@
-@using Delalba.Components.Pages.Productos;
+﻿@using Delalba.Components.Pages.Productos;
 @using Delalba.Components.Pages;
 @rendermode InteractiveServer
 
+<p class="card-text">Puedes agregar al Carrito un mismo producto más de una vez</p>
 
-<table class="table table-striped table-hover">
+<div class="row">
+    @foreach (var item in Datos)
+    {
+        <div class="col-2 mb-2 mb-sm-2 me-5">
+        <div class="card" style="width: 18rem;">
+            @switch (item.Nombre)
+            {
+                case "Almendras Peladas":
+                    <img src="/Imgs/Almendras.webp" alt="Imagen Castañas" class="card-img-top" />
+                    break;
+                case "Castañas de Caju":
+                    <img src="/Imgs/Castañas.jpg" alt="Imagen Castañas" class="card-img-top" />
+                    break;
+                case "Lentejas":
+                    <img src="/Imgs/Lentejas.webp" alt="Imagen Castañas" class="card-img-top" />
+                    break;
+                default:
+                    Console.WriteLine("Invalid Name");
+                    break;
+            }
+            <div class="card-body">
+                <h5 class="card-title">@item.Nombre</h5>
+                @switch (item.Nombre)
+                {
+                    case "Lentejas":
+                        <p class="card-text">200g</p>
+                        break;
+                    default:
+                        <p class="card-text">100g</p>
+                        break;
+                }
+                <AuthorizeView>
+                    <Authorized>
+                        <td>
+                                @* <button type="button" class="btn btn-link" @onclick="() => AñadirAlCarritoEvent.InvokeAsync(item)">Añadir al Carrito</button> *@
+                                <a href="#" class="btn btn-primary" @onclick="() => AñadirAlCarritoEvent.InvokeAsync(item)">Añadir al Carrito</a>
+                        </td>
+                    </Authorized>
+                </AuthorizeView>
+                <AuthorizeView>
+                    <NotAuthorized>
+                        <td>
+                            @* <button type="button" class="btn btn-link" @onclick="() => LoginEvent.InvokeAsync()">Añadir al Carrito</button> *@
+                                <a href="#" class="btn btn-primary" @onclick="() => LoginEvent.InvokeAsync()">Añadir al Carrito</a>
+                        </td>
+                    </NotAuthorized>
+                </AuthorizeView>
+                @* <a href="#" class="btn btn-primary">Go somewhere</a> *@
+            </div>
+        </div>
+        </div>
+    }
+</div>
+
+
+
+@* <table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>Nombre</th>
@@ -41,33 +97,35 @@
                         <td>
                             <button type="button" class="btn btn-link" @onclick="() => ModificarEvent.InvokeAsync(item)">Modificar</button>
                             <button type="button" class="btn btn-link" @onclick="() => EliminarEvent.InvokeAsync(item)">Eliminar</button>
-                            @if (item.Activado == true){
+                            @if (item.Activado == true)
+                            {
                                 <button type="button" class="btn btn-link" @onclick="() => DesactivarEvent.InvokeAsync(item)">Desactivar</button>
                             }
-                            else{
+                            else
+                            {
                                 <button type="button" class="btn btn-link" @onclick="() => ActivarEvent.InvokeAsync(item)">Activar</button>
                             }
-                            
+
                         </td>
                     }
                     @if (MostrarBotonCarrito)
                     {
                         <td>
                             @switch (item.Nombre)
-                                {
+                            {
                                 case "Almendras Peladas":
                                     <img src="/Imgs/Almendras.webp" alt="Imagen Castañas" style="width: 100px; height: 100px;" />
-                                break;
+                                    break;
                                 case "Castañas de Caju":
                                     <img src="/Imgs/Castañas.jpg" alt="Imagen Castañas" style="width: 100px; height: 100px;" />
-                                break;
+                                    break;
                                 case "Lentejas":
                                     <img src="/Imgs/Lentejas.webp" alt="Imagen Castañas" style="width: 100px; height: 100px;" />
-                                break;
+                                    break;
                                 default:
-                                Console.WriteLine("Invalid Name");
-                                break;
-                                }
+                                    Console.WriteLine("Invalid Name");
+                                    break;
+                            }
                         </td>
 
                         <AuthorizeView>
@@ -89,7 +147,7 @@
             }
         }
     </tbody>
-</table>
+</table> *@
 
 <hr />
 <br />

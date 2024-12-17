@@ -10,7 +10,7 @@
 
 <br />
 
-<h1>Tienda de Productos Delalba!</h1>
+<h1>Dietética Delalba</h1>
 
 <br />
 <hr />
@@ -108,8 +108,9 @@ Nombre de Producto
     </div>
 </div>
 
+<ProductosCartas Datos="@ProductosList" AñadirAlCarritoEvent="AñadirAlCarrito" LoginEvent="Login"></ProductosCartas>
 
-<ProductosListado Datos="@ProductosList" MostrarBotones="false" MostrarBotonCarrito="true" AñadirAlCarritoEvent="AñadirAlCarrito" LoginEvent="Login"/>
+@* <ProductosListado Datos="@ProductosList" MostrarBotones="false" MostrarBotonCarrito="true" AñadirAlCarritoEvent="AñadirAlCarrito" LoginEvent="Login"/> *@
 
 <AuthorizeView Roles="Admin">
     <Authorized>

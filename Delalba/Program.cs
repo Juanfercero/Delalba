@@ -64,7 +64,6 @@ builder.Services.AddServerSideBlazor()
         options.HandshakeTimeout = TimeSpan.FromMinutes(2); // Ajusta el tiempo de handshake
     });
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
