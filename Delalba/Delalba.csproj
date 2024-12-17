@@ -10,7 +10,6 @@
   <ItemGroup>
     <None Include="wwwroot\Imgs\Almendras.webp" />
     <None Include="wwwroot\Imgs\Castañas.jpg" />
-    <None Include="wwwroot\Imgs\Lentejas.webp" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,59 +2,121 @@
 @using Delalba.Components.Pages;
 @rendermode InteractiveServer
 
-<p class="card-text">Puedes agregar al Carrito un mismo producto más de una vez</p>
+@* <p class="card-text">Puedes agregar al Carrito un mismo producto más de una vez</p> *@
 
 <div class="row">
     @foreach (var item in Datos)
     {
-        <div class="col-2 mb-2 mb-sm-2 me-5">
-        <div class="card" style="width: 18rem;">
-            @switch (item.Nombre)
-            {
-                case "Almendras Peladas":
-                    <img src="/Imgs/Almendras.webp" alt="Imagen Castañas" class="card-img-top" />
-                    break;
-                case "Castañas de Caju":
-                    <img src="/Imgs/Castañas.jpg" alt="Imagen Castañas" class="card-img-top" />
-                    break;
-                case "Lentejas":
-                    <img src="/Imgs/Lentejas.webp" alt="Imagen Castañas" class="card-img-top" />
-                    break;
-                default:
-                    Console.WriteLine("Invalid Name");
-                    break;
-            }
-            <div class="card-body">
-                <h5 class="card-title">@item.Nombre</h5>
-                @switch (item.Nombre)
-                {
-                    case "Lentejas":
-                        <p class="card-text">200g</p>
-                        break;
-                    default:
-                        <p class="card-text">100g</p>
-                        break;
-                }
-                <AuthorizeView>
-                    <Authorized>
-                        <td>
-                                @* <button type="button" class="btn btn-link" @onclick="() => AñadirAlCarritoEvent.InvokeAsync(item)">Añadir al Carrito</button> *@
-                                <a href="#" class="btn btn-primary" @onclick="() => AñadirAlCarritoEvent.InvokeAsync(item)">Añadir al Carrito</a>
-                        </td>
-                    </Authorized>
-                </AuthorizeView>
-                <AuthorizeView>
-                    <NotAuthorized>
-                        <td>
-                            @* <button type="button" class="btn btn-link" @onclick="() => LoginEvent.InvokeAsync()">Añadir al Carrito</button> *@
-                                <a href="#" class="btn btn-primary" @onclick="() => LoginEvent.InvokeAsync()">Añadir al Carrito</a>
-                        </td>
-                    </NotAuthorized>
-                </AuthorizeView>
-                @* <a href="#" class="btn btn-primary">Go somewhere</a> *@
+        @if (item.Activado == true)
+        {
+            <div class="col-2 mb-2 mb-sm-2 me-5 d-lg-flex">
+                <div class="card" style="width: 18rem;">
+                    @switch (item.Nombre)
+                    {
+                        case "Almendras Peladas":
+                            <img src="/Imgs/Almendras.webp" alt="Imagen Almendras" class="card-img-top" />
+                            break;
+                        case "Castañas de Caju":
+                            <img src="/Imgs/Castañas.jpg" alt="Imagen Castañas" class="card-img-top" />
+                            break;
+                        case "Lentejas":
+                            <img src="/Imgs/Lentejas.jpg" alt="Imagen Lentejas" class="card-img-top" />
+                            break;
+                        case "Aceite de girasol":
+                            <img src="/Imgs/AceiteGirasol.webp" alt="Imagen Lentejas" class="card-img-top" />
+                            break;
+                        case "Harina de trigo 000":
+                            <img src="/Imgs/Harina000.webp" alt="Imagen Lentejas" class="card-img-top" />
+                            break;
+                        case "Harina de trigo 0000":
+                            <img src="/Imgs/Harina0000.webp" alt="Imagen Lentejas" class="card-img-top" />
+                            break;
+                        case "Mani tostado":
+                            <img src="/Imgs/Mani.jpg" alt="Imagen Lentejas" class="card-img-top" />
+                            break;
+                        case "Nueces":
+                            <img src="/Imgs/Nueces.webp" alt="Imagen Lentejas" class="card-img-top" />
+                            break;
+                        case "Pasas de uva":
+                            <img src="/Imgs/Pasas.jpg" alt="Imagen Lentejas" class="card-img-top" />
+                            break;
+                        case "Mix frutos secos con pasas":
+                            <img src="/Imgs/MixConPasas.jpg" alt="Imagen Lentejas" class="card-img-top" />
+                            break;
+                        case "Mix frutos secos sin pasas":
+                            <img src="/Imgs/MixSinPasas.webp" alt="Imagen Lentejas" class="card-img-top" />
+                            break;
+                        case "Copos de maíz":
+                            <img src="/Imgs/Copos.webp" alt="Imagen Lentejas" class="card-img-top" />
+                            break;
+                        case "Avena":
+                            <img src="/Imgs/Avena.jpg" alt="Imagen Lentejas" class="card-img-top" />
+                            break;
+                        case "Aceite de oliva":
+                            <img src="/Imgs/AceiteOliva.webp" alt="Imagen Lentejas" class="card-img-top" />
+                            break;
+                        case "Granola":
+                            <img src="/Imgs/Granola.webp" alt="Imagen Lentejas" class="card-img-top" />
+                            break;
+                        case "Stevia":
+                            <img src="/Imgs/stevia.jpg" alt="Imagen Lentejas" class="card-img-top" />
+                            break;
+                        case "Aceite de coco":
+                            <img src="/Imgs/AceiteCoco.webp" alt="Imagen Lentejas" class="card-img-top" />
+                            break;
+                        case "Azúcar":
+                            <img src="/Imgs/Azucar.webp" alt="Imagen Lentejas" class="card-img-top" />
+                            break;
+                        case "Harina integral":
+                            <img src="/Imgs/HarinaIntegral.webp" alt="Imagen Lentejas" class="card-img-top" />
+                            break;
+                        default:
+                            Console.WriteLine("Invalid Name");
+                            break;
+                    }
+                    <div class="card-body">
+                        <h6 class="card-title">@item.Nombre</h6>
+                        <h5 class="card-text">$@item.Precio</h5>
+                        
+                        @switch (item.Nombre)
+                        {
+                            case "Aceite de girasol":
+                                <p class="card-text">900ml</p>
+                                break;
+                            case "Aceite de oliva":
+                                <p class="card-text">900ml</p>
+                                break;
+                            case "Stevia":
+                                <p class="card-text">600ml</p>
+                                break;
+                            case "Aceite de coco":
+                                <p class="card-text">500ml</p>
+                                break;
+                            default:
+                                <p class="card-text">1 Kilo</p>
+                                break;
+                        }
+                        <AuthorizeView>
+                            <Authorized>
+                                <td>
+                                    @* <button type="button" class="btn btn-link" @onclick="() => AñadirAlCarritoEvent.InvokeAsync(item)">Añadir al Carrito</button> *@
+                                    <a href="#" class="btn btn-primary" @onclick="() => AñadirAlCarritoEvent.InvokeAsync(item)">Añadir al Carrito</a>
+                                </td>
+                            </Authorized>
+                        </AuthorizeView>
+                        <AuthorizeView>
+                            <NotAuthorized>
+                                <td>
+                                    @* <button type="button" class="btn btn-link" @onclick="() => LoginEvent.InvokeAsync()">Añadir al Carrito</button> *@
+                                    <a href="#" class="btn btn-primary" @onclick="() => LoginEvent.InvokeAsync()">Añadir al Carrito</a>
+                                </td>
+                            </NotAuthorized>
+                        </AuthorizeView>
+                        @* <a href="#" class="btn btn-primary">Go somewhere</a> *@
+                    </div>
+                </div>
             </div>
-        </div>
-        </div>
+        }
     }
 </div>
 
