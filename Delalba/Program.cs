@@ -16,6 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
     //options.UseSqlServer(builder.Configuration.GetConnectionString("Defualt"));
 //});
 
+
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();

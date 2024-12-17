@@ -2,12 +2,12 @@
 @using Delalba.Components.Pages.ModalesTienda
 
 <div class="page">
-    <div class="sidebar">
+    <div class="sidebar nav-yo-color">
         <NavMenu />
     </div>
 
     <main>
-        <div class="top-row px-4">
+        <div class="top-row px-4" style="color:green">
             @* <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
             <CarritoModal OpenCarritoEvent="OpenCarrito"></CarritoModal>
             <button type="button" class="btn btn-primary" @onclick="OpenCarrito"> Carrito </button> *@
@@ -67,3 +67,9 @@
 
     //Este carrito no está en uso
 }
+
+    <style>
+        .nav-yo-color{
+        color:green !important;
+        }
+    </style>

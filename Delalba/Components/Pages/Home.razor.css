@@ -1,0 +1,68 @@
+﻿
+body {
+    /* Estilo personalizado para el modal del carrito */
+    .custom-modal-carrito
+
+{
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para la tabla del carrito */
+.table {
+    margin-bottom: 0; /* Elimina margen innecesario */
+}
+
+    .table thead th {
+        background-color: #f8f9fa;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+    }
+
+    .table tfoot {
+        background-color: #e9ecef;
+    }
+
+.btn-outline-danger {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+}
+
+.alert-warning {
+    font-size: 1rem;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+
+/* Estilo para el título principal */
+.titulo-delalba {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 3rem; /* Tamaño del texto */
+    text-align: center;
+    color: #2e7d32; /* Verde natural */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+}
+
+    /* Estilo adicional para la palabra 'Delalba' */
+    .titulo-delalba span {
+        font-weight: bold;
+        color: #1b5e20; /* Verde más oscuro */
+    }
+
+    /* Icono o decoración sutil */
+    .titulo-delalba::before {
+        content: "🌱";
+        display: inline-block;
+        margin-right: 10px;
+        font-size: 1.5rem;
+        color: #4caf50;
+    }
+
+.titulo-delalba {
+    font-family: 'Montserrat', sans-serif;
+}
+
+}

@@ -135,6 +135,7 @@ namespace Delalba.Components.Pages.Productos
 
             if (filtroNombreProducto != "")
             {
+                filtroNombreProducto = filtroNombreProducto.Substring(0, 1).ToUpper() + filtroNombreProducto.Substring(1).ToLower();
                 ProductosList = ProductosList.Where(c => c.Nombre.Contains(filtroNombreProducto)).ToList();
             }
 

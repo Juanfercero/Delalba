@@ -8,22 +8,95 @@
 
 <PageTitle>Home</PageTitle>
 
-<br />
+@* <br /> *@
 
-<h1>Dietética Delalba</h1>
+<h1 class="titulo-delalba">
+    🌿 Dietética <span>Delalba</span>
+</h1>
 
-<br />
-<hr />
+@*  <br /> *@
+@*<hr /> *@
 
-Nombre de Producto
+<div class="busqueda-container">
+    <input type="text" class="busqueda-input" placeholder="Buscar producto..." @bind-value="filtroNombreProducto" />
+    <button type="button" class="btn btn-buscar" @onclick="BuscarProducto">🔍 Buscar</button>
+    <button type="button" class="btn btn-carrito" @onclick="OpenCarrito">🛒 Carrito</button>
+</div>
+
+
+@* Nombre de Producto
 <input type="text" placeholder="(Comience con Mayúscula)" @bind-value="filtroNombreProducto" />
 <button type="button" class="btn btn-primary" @onclick="BuscarProducto"> Buscar </button>
-<button type="button" class="btn btn-primary" @onclick="OpenCarrito"> Carrito </button>
+<button type="button" class="btn btn-primary" @onclick="OpenCarrito"> 🛒 Su Carrito </button> *@
 
-<hr />
+<hr style="color:green"/>
+
+@* Modal de Carrito Nuevo *@
+<div class="modal @StatusModal" tabindex="-1" style="display:@StyleDisplay">
+    <div class="modal-dialog modal-lg">
+        @* Hacer el modal más amplio *@
+        <div class="modal-content custom-modal-carrito">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold text-uppercase">🛒 Su Carrito</h5>
+                <button type="button" class="btn-close" aria-label="Close" @onclick="CloseCarrito"></button>
+            </div>
+            <div class="modal-body">
+                @if (CarritoList != null && CarritoList.Count != 0)
+                {
+                    <table class="table table-borderless align-middle">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in CarritoList)
+                            {
+                                <tr>
+                                    <td>@item.Nombre</td>
+                                    <td class="text-success">$@item.Precio</td>
+                                    <td>
+                                        <button type="button" class="btn btn-outline-danger btn-sm"
+                                                @onclick="() => EliminarProducto(item)">
+                                            Eliminar 🗑
+                                        </button>
+                                    </td>
+                                </tr>
+                                PrecioTotal = PrecioTotal + @item.Precio;
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr class="fw-bold">
+                                <td>Total:</td>
+                                <td class="text-success">$@PrecioTotal</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-warning text-center">
+                        🛒 El carrito está vacío. ¡Añada productos para continuar!
+                    </div>
+                }
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-secondary" @onclick="CloseCarrito">Seguir Comprando</button>
+                @if (CarritoList != null && CarritoList.Count != 0)
+                {
+                    <button type="button" class="btn btn-primary" @onclick="OpenConfirmacion">Ir a Confirmación ✅</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @* Modal de Carrito *@
-<div class="modal @StatusModal" tabindex="-1" style="display:@StyleDisplay">
+@* <div class="modal @StatusModal" tabindex="-1" style="display:@StyleDisplay">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -36,8 +109,6 @@ Nombre de Producto
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                @* <th>N</th>
-                                <th>P</th> *@
                             </tr>
                         </thead>
 
@@ -74,7 +145,7 @@ Nombre de Producto
             </div>
         </div>
     </div>
-</div>
+</div> *@
 
 @* Modal de Confirmacion *@
 <div class="modal @StatusConfirmacion" tabindex="-1" style="display:@StyleDisplayConfirmacion">
@@ -107,6 +178,8 @@ Nombre de Producto
         </div>
     </div>
 </div>
+
+<br />
 
 <ProductosCartas Datos="@ProductosList" AñadirAlCarritoEvent="AñadirAlCarrito" LoginEvent="Login"></ProductosCartas>
 
@@ -141,6 +214,7 @@ Nombre de Producto
 
         if (filtroNombreProducto != "")
         {
+            filtroNombreProducto = filtroNombreProducto.Substring(0, 1).ToUpper() + filtroNombreProducto.Substring(1).ToLower();
             ProductosList = ProductosList.Where(c => c.Nombre.Contains(filtroNombreProducto)).ToList();
         }
 
@@ -268,3 +342,132 @@ Nombre de Producto
         ProductosList = ProductosList.OrderBy(p => p.Nombre).ToList();
     }
 }
+
+<style>
+    body {
+        /* Estilo personalizado para el modal del carrito */
+        .custom-modal-carrito
+
+    {
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Estilo para la tabla del carrito */
+    .table {
+        margin-bottom: 0; /* Elimina margen innecesario */
+    }
+
+        .table thead th {
+            background-color: #f8f9fa;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .table tfoot {
+            background-color: #e9ecef;
+        }
+
+    .btn-outline-danger {
+        padding: 4px 8px;
+        font-size: 0.8rem;
+    }
+
+    .alert-warning {
+        font-size: 1rem;
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+
+    /* Estilo para el título principal */
+    .titulo-delalba {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 3rem; /* Tamaño del texto */
+        text-align: center;
+        margin-right: 180px;
+        color: #2e7d32; /* Verde natural */
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        margin-bottom: 1rem;
+        letter-spacing: 1px;
+    }
+
+        /* Estilo adicional para la palabra 'Delalba' */
+        .titulo-delalba span {
+            font-weight: bold;
+            color: #1b5e20; /* Verde más oscuro */
+        }
+
+        /* Icono o decoración sutil */
+        .titulo-delalba::before {
+            content: "";
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 1.5rem;
+            color: #4caf50;
+        }
+
+    .titulo-delalba {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    }
+
+
+
+    /* Contenedor principal de la barra de búsqueda */
+    .busqueda-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px; /* Espacio entre elementos */
+        margin: 20px 0;
+        padding: 10px;
+    }
+
+    /* Estilo para el input de búsqueda */
+    .busqueda-input {
+        width: 300px;
+        padding: 10px 15px;
+        font-size: 1rem;
+        border: 2px solid #81c784; /* Borde verde suave */
+        border-radius: 25px; /* Bordes redondeados */
+        outline: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    }
+
+        .busqueda-input:focus {
+            border-color: #388e3c; /* Verde más fuerte al enfocar */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+    /* Botones de búsqueda y carrito */
+    .btn-buscar, .btn-carrito {
+        background-color: #4caf50; /* Verde natural */
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 25px; /* Bordes redondeados */
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+        .btn-carrito{
+        margin-right: 135px;
+        }
+
+        .btn-buscar:hover, .btn-carrito:hover {
+            background-color: #388e3c; /* Verde más oscuro */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Efecto de sombra */
+        }
+
+        .btn-buscar:active, .btn-carrito:active {
+            transform: scale(0.95); /* Pequeño efecto de presión */
+        }
+
+</style>
