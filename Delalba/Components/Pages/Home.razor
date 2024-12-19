@@ -2,6 +2,7 @@
 @inject NavigationManager navigation
 @rendermode InteractiveServer
 @using Delalba.Components.Pages.Productos
+@using Delalba.Components.Account.Pages;
 
 @* @using Microsoft.AspNetCore.Components; *@
 @using Delalba.Data;
@@ -181,7 +182,23 @@
 
 <br />
 
-<ProductosCartas Datos="@ProductosList" AñadirAlCarritoEvent="AñadirAlCarrito" LoginEvent="Login"></ProductosCartas>
+<div class="card text-center">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a class="nav-link @MinoristaActivo" aria-current="@AreaMinorista" @onclick="() => Minorista()">Minorista</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @MayoristaActivo" aria-current="@AreaMayorista" @onclick="() => Mayorista()">Mayorista</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <ProductosCartas Datos="@ProductosList" AñadirAlCarritoEvent="AñadirAlCarrito" LoginEvent="Login" ProductosDelMayorista="ProductosDelMayoristaAhora"></ProductosCartas>
+    </div>
+</div>
+
+@* <ProductosCartas Datos="@ProductosList" AñadirAlCarritoEvent="AñadirAlCarrito" LoginEvent="Login"></ProductosCartas> *@
 
 @* <ProductosListado Datos="@ProductosList" MostrarBotones="false" MostrarBotonCarrito="true" AñadirAlCarritoEvent="AñadirAlCarrito" LoginEvent="Login"/> *@
 
@@ -199,8 +216,37 @@
 </AuthorizeView>
 
 @code {
+    //Minorista Mayorista
+    private string MayoristaActivo = "";
+    private string MinoristaActivo = "active";
+    private string AreaMayorista = "";
+    private string AreaMinorista = "true";
+    public bool ProductosDelMayoristaAhora = false;
+
+    private void Mayorista()
+    {
+        MayoristaActivo = "active";
+        MinoristaActivo = "";
+        AreaMayorista = "true";
+        AreaMinorista = "";
+        ProductosDelMayoristaAhora = true;
+        StateHasChanged();
+    }
+
+    private void Minorista()
+    {
+        MayoristaActivo = "";
+        MinoristaActivo = "active";
+        AreaMayorista = "";
+        AreaMinorista = "true";
+        ProductosDelMayoristaAhora = false;
+        StateHasChanged();
+    }
+
     //BUSCAR
     public string filtroNombreProducto = "";
+
+    public int? EnTeoriaUsuarioLogueado { get; set; } = null;
 
     private void BuscarProducto()
     {
@@ -285,7 +331,7 @@
             ProductosMail = $"{ProductosMail + item.Nombre}";
         }
 
-        Execute();
+        Execute(ProductosDelMayoristaAhora);
         // Execute().Wait();
         CloseConfirmacion();
         CarritoList.Clear();
@@ -315,9 +361,26 @@
         navigation.NavigateTo("productos");
     }
 
-    private void Login()
+    
+
+    public void Login()
     {
-        navigation.NavigateTo("Account/Register");
+        if(EnTeoriaUsuarioLogueado == null)
+        {
+            EnTeoriaUsuarioLogueado = 1;
+        }
+
+        if (EnTeoriaUsuarioLogueado == 2)
+        {
+            navigation.NavigateTo("Account/Login");
+        }
+        else{
+            EnTeoriaUsuarioLogueado = 2;
+            StateHasChanged();
+            navigation.NavigateTo("Account/Register");
+            
+        }
+        
     }
 
 

@@ -25,7 +25,7 @@ namespace Delalba.Components.Pages
 
 
         //El Execute antes era private
-        static async Task Execute()
+        static async Task Execute(bool PorMayor)
         {
             var apiKey = Environment.GetEnvironmentVariable("ApiKey");
 
@@ -43,8 +43,8 @@ namespace Delalba.Components.Pages
             var from = new EmailAddress("juanfer.cero@gmail.com", "Juan");
             var subject = "Nuevo pedido de Delalba!";
             var to = new EmailAddress("nicoproserpioriver@gmail.com", "Nicolas");
-            var plainTextContent = $"Se piden estos productos: {ProductosMail}";
-            var htmlContent = $"<strong>Se piden estos productos: {ProductosMail}</strong>";
+            var plainTextContent = $"Se piden estos productos: {ProductosMail}. Se compraron por mayorista? {PorMayor}";
+            var htmlContent = $"<strong>Se piden estos productos: {ProductosMail}. Se compraron por mayorista? {PorMayor}</strong>";
 
             //Con el MailHelper se construye el correo
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);

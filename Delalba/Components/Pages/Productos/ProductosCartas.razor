@@ -75,27 +75,59 @@
                             break;
                     }
                     <div class="card-body">
-                        <h6 class="card-title">@item.Nombre</h6>
-                        <h5 class="card-text">$@item.Precio</h5>
-                        
-                        @switch (item.Nombre)
-                        {
-                            case "Aceite de girasol":
-                                <p class="card-text">900ml</p>
-                                break;
-                            case "Aceite de oliva":
-                                <p class="card-text">900ml</p>
-                                break;
-                            case "Stevia":
-                                <p class="card-text">600ml</p>
-                                break;
-                            case "Aceite de coco":
-                                <p class="card-text">500ml</p>
-                                break;
-                            default:
-                                <p class="card-text">1 Kilo</p>
-                                break;
+                        @if(ProductosDelMayorista == false){
+                            <h6 class="card-title">@item.Nombre</h6>
+                            <h5 class="card-text">$@item.Precio</h5>
                         }
+                        else{
+                            int May = item.Precio * 9;
+                            <h6 class="card-title">@item.Nombre</h6>
+                            <h5 class="card-text">$@May</h5>
+                        }
+
+                        @if (ProductosDelMayorista == false)
+                        {
+                            @switch (item.Nombre)
+                            {
+                                case "Aceite de girasol":
+                                    <p class="card-text">900ml</p>
+                                    break;
+                                case "Aceite de oliva":
+                                    <p class="card-text">900ml</p>
+                                    break;
+                                case "Stevia":
+                                    <p class="card-text">600ml</p>
+                                    break;
+                                case "Aceite de coco":
+                                    <p class="card-text">500ml</p>
+                                    break;
+                                default:
+                                    <p class="card-text">1 Kilo</p>
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            @switch (item.Nombre)
+                            {
+                                case "Aceite de girasol":
+                                    <p class="card-text">10 botellas de 900ml</p>
+                                    break;
+                                case "Aceite de oliva":
+                                    <p class="card-text">10 botellas de 900ml</p>
+                                    break;
+                                case "Stevia":
+                                    <p class="card-text">10 botellitas de 600ml</p>
+                                    break;
+                                case "Aceite de coco":
+                                    <p class="card-text">10 frascos de 500ml</p>
+                                    break;
+                                default:
+                                    <p class="card-text">10 Kilos</p>
+                                    break;
+                            }
+                        }
+                        
                         <AuthorizeView>
                             <Authorized>
                                 <td>
@@ -228,6 +260,8 @@
     public bool MostrarBotones { get; set; } = false;
     [Parameter]
     public bool MostrarBotonCarrito { get; set; } = false;
+    [Parameter]
+    public bool ProductosDelMayorista { get; set; } = false;
     [Parameter]
     public RenderFragment ColumnasAdicionales { get; set; } = null;
     [Parameter]

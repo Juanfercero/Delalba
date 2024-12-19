@@ -13,6 +13,15 @@
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
 
+@* Log automatico *@
+@* @using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Authentication
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject ILogger<Login> Logger
+@inject NavigationManager NavigationManager
+@inject IdentityRedirectManager RedirectManager *@
+
 <PageTitle>Register confirmation</PageTitle>
 
 <h1>Register confirmation</h1>
@@ -77,6 +86,9 @@ else
 
             // ENVIA EL MAIL DE UNA VEZ!
             await Execute(user.Email, emailConfirmationLink);
+
+            //Log automatico
+            // LoginUser(user.Email, Input.Password);
         }
     }
 
@@ -100,8 +112,10 @@ else
         var from = new EmailAddress("juanfer.cero@gmail.com", "Delalba");
         var subject = "Confirmación de Mail Delalba!";
         var to = new EmailAddress($"{userEmail}", "Nicolas");
-        var plainTextContent = $"{emailConf}";
-        var htmlContent = $"<strong>{emailConf} </strong>";
+        var plainTextContent = $"Confirma tu cuenta usando este enlace: {emailConf}";
+        var htmlContent = $"<strong>Confirma tu cuenta usando este enlace:</strong> <a href='{emailConf}'>Click aquí</a>";
+        // var plainTextContent = $"{emailConf}";
+        // var htmlContent = $"<strong>{emailConf} </strong>";
 
         //Con el MailHelper se construye el correo
         var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
@@ -109,4 +123,33 @@ else
         //Acá se envía el correo
         var response = await client.SendEmailAsync(msg);
     }
+
+
+    // //Log Automático
+    // public async Task LoginUser(string SuMail, string Pass)
+    // {
+    //     // This doesn't count login failures towards account lockout
+    //     // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+    //     var result = await SignInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+    //     if (result.Succeeded)
+    //     {
+    //         Logger.LogInformation("User logged in.");
+    //         RedirectManager.RedirectTo(ReturnUrl);
+    //     }
+    //     else if (result.RequiresTwoFactor)
+    //     {
+    //         RedirectManager.RedirectTo(
+    //             "Account/LoginWith2fa",
+    //             new() { ["returnUrl"] = ReturnUrl, ["rememberMe"] = Input.RememberMe });
+    //     }
+    //     else if (result.IsLockedOut)
+    //     {
+    //         Logger.LogWarning("User account locked out.");
+    //         RedirectManager.RedirectTo("Account/Lockout");
+    //     }
+    //     else
+    //     {
+    //         errorMessage = "Error: Invalid login attempt.";
+    //     }
+    // }
 }
