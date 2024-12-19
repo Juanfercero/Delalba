@@ -6,6 +6,10 @@
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.WebUtilities
 @using Delalba.Data
+@using Delalba.Services
+
+@using SendGrid;
+@using SendGrid.Helpers.Mail;
 
 @inject UserManager<ApplicationUser> UserManager
 @inject IUserStore<ApplicationUser> UserStore
@@ -16,6 +20,7 @@
 @inject IdentityRedirectManager RedirectManager
 @inject RoleManager<IdentityRole> RolesManager
 @inject ApplicationDbContext context
+
 
 <PageTitle>Register</PageTitle>
 
@@ -59,7 +64,6 @@
 
 @code {
 
-
     private IEnumerable<IdentityError>? identityErrors;
 
     [SupplyParameterFromForm]
@@ -81,6 +85,7 @@
         productosList = context.Productos.ToList();
         rolesList = RolesManager.Roles.ToList();
     }
+
 
     public async Task RegisterUser(EditContext editContext)
     {
@@ -115,6 +120,15 @@
 
         await EmailSender.SendConfirmationLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
 
+
+        
+
+        // // ENVIA EL MAIL DE UNA VEZ!
+        // await Execute(user.Email);
+
+
+
+
         if (UserManager.Options.SignIn.RequireConfirmedAccount)
         {
             RedirectManager.RedirectTo(
@@ -125,6 +139,42 @@
         await SignInManager.SignInAsync(user, isPersistent: false);
         RedirectManager.RedirectTo(ReturnUrl);
     }
+
+
+
+
+    // //ENVIA EL MAIL DE UNA VEZ!
+    // static async Task Execute(string userEmail)
+    // {
+
+    //     var apiKey = Environment.GetEnvironmentVariable("ApiKey");
+
+    //     //Console.WriteLine($"{apiKey}");
+
+    //     if (string.IsNullOrEmpty(apiKey))
+    //     {
+    //         Console.WriteLine("Error: API Key no configurada.");
+    //         return;
+    //     }
+
+    //     //API entre las comillas
+    //     var client = new SendGridClient(apiKey);
+
+    //     var from = new EmailAddress("juanfer.cero@gmail.com", "Juan");
+    //     var subject = "Confirmación de Mail Delalba!";
+    //     var to = new EmailAddress($"{userEmail}", "Nicolas");
+    //     var plainTextContent = $"{emailConfirmationLink}";
+    //     var htmlContent = $"<strong>Se piden estos productos: </strong>";
+
+    //     //Con el MailHelper se construye el correo
+    //     var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+
+    //     //Acá se envía el correo
+    //     var response = await client.SendEmailAsync(msg);
+    // }
+
+
+
 
     private ApplicationUser CreateUser()
     {
@@ -166,4 +216,6 @@
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; } = "";
     }
+
+    
 }

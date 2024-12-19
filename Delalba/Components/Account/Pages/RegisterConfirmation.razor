@@ -5,6 +5,9 @@
 @using Microsoft.AspNetCore.WebUtilities
 @using Delalba.Data
 
+@using SendGrid;
+@using SendGrid.Helpers.Mail;
+
 @inject UserManager<ApplicationUser> UserManager
 @inject IEmailSender<ApplicationUser> EmailSender
 @inject NavigationManager NavigationManager
@@ -19,9 +22,13 @@
 @if (emailConfirmationLink is not null)
 {
     <p>
+        Su Mail de confirmación ha sido enviado
+        Una vez confimado solo debe loguearse en la página :)
+    </p>
+    @* <p>
         This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
         Normally this would be emailed: <a href="@emailConfirmationLink">Click here to confirm your account</a>
-    </p>
+    </p> *@
 }
 else
 {
@@ -64,6 +71,42 @@ else
             emailConfirmationLink = NavigationManager.GetUriWithQueryParameters(
                 NavigationManager.ToAbsoluteUri("Account/ConfirmEmail").AbsoluteUri,
                 new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code, ["returnUrl"] = ReturnUrl });
+
+
+
+
+            // ENVIA EL MAIL DE UNA VEZ!
+            await Execute(user.Email, emailConfirmationLink);
         }
+    }
+
+    //ENVIA EL MAIL DE UNA VEZ!
+    static async Task Execute(string userEmail, string emailConf)
+    {
+
+        var apiKey = Environment.GetEnvironmentVariable("ApiKey");
+
+        //Console.WriteLine($"{apiKey}");
+
+        if (string.IsNullOrEmpty(apiKey))
+        {
+            Console.WriteLine("Error: API Key no configurada.");
+            return;
+        }
+
+        //API entre las comillas
+        var client = new SendGridClient(apiKey);
+
+        var from = new EmailAddress("juanfer.cero@gmail.com", "Delalba");
+        var subject = "Confirmación de Mail Delalba!";
+        var to = new EmailAddress($"{userEmail}", "Nicolas");
+        var plainTextContent = $"{emailConf}";
+        var htmlContent = $"<strong>{emailConf} </strong>";
+
+        //Con el MailHelper se construye el correo
+        var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+
+        //Acá se envía el correo
+        var response = await client.SendEmailAsync(msg);
     }
 }

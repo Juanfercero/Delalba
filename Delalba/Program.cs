@@ -1,5 +1,6 @@
 using Delalba.Components;
 using Delalba.Components.Account;
+using Delalba.Components.Pages;
 using Delalba.Context;
 using Delalba.Data;
 using Delalba.Services;
@@ -64,6 +65,9 @@ builder.Services.AddServerSideBlazor()
         options.ClientTimeoutInterval = TimeSpan.FromMinutes(3); // Aumenta el tiempo de espera
         options.HandshakeTimeout = TimeSpan.FromMinutes(2); // Ajusta el tiempo de handshake
     });
+
+// Cargar configuración de user-secrets(CHAT GPT)
+builder.Configuration.AddUserSecrets<Program>();
 
 var app = builder.Build();
 

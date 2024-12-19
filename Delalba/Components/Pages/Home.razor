@@ -59,7 +59,7 @@
                                     <td class="text-success">$@item.Precio</td>
                                     <td>
                                         <button type="button" class="btn btn-outline-danger btn-sm"
-                                                @onclick="() => EliminarProducto(item)">
+                                        @onclick="() => EliminarProducto(item)">
                                             Eliminar 🗑
                                         </button>
                                     </td>
@@ -286,7 +286,10 @@
         }
 
         Execute();
+        // Execute().Wait();
+        CloseConfirmacion();
         CarritoList.Clear();
+        ProductosMail = "";
         StateHasChanged();
     }
 
@@ -304,7 +307,6 @@
         CarritoList.Add(ProductoCarrito);
         CarritoNoNull = true;
         context.SaveChanges();
-        GetData();
     }
 
     //NAVIGATE

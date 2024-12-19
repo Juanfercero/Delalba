@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
 using SendGrid;
@@ -7,6 +8,8 @@ using SendGrid.Helpers.Mail;
 //Delalba.Services
 //WebPWrecover.Services
 
+
+//No se usa, para el mail de confirmacion vaya a "RegisterConfirmation"
 namespace Delalba.Services
 {
     public class EmailSender : IEmailSender
