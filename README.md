@@ -2,4 +2,4 @@
 
 Sitio oficial de Cerealera Delalba.
 
-Permite la reserva de productos para ser entregados en el local o a domicilio.
+Permite la reserva de productos minorista y mayorista del local.
