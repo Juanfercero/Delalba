@@ -246,8 +246,6 @@
     //BUSCAR
     public string filtroNombreProducto = "";
 
-    public int? EnTeoriaUsuarioLogueado { get; set; } = null;
-
     private void BuscarProducto()
     {
         GetData();
@@ -361,26 +359,19 @@
         navigation.NavigateTo("productos");
     }
 
-    
+    static public bool EnTeoriaUsuarioLogueado { get; set; } = false;
 
     public void Login()
     {
-        if(EnTeoriaUsuarioLogueado == null)
-        {
-            EnTeoriaUsuarioLogueado = 1;
-        }
-
-        if (EnTeoriaUsuarioLogueado == 2)
+        if (EnTeoriaUsuarioLogueado == true)
         {
             navigation.NavigateTo("Account/Login");
         }
         else{
-            EnTeoriaUsuarioLogueado = 2;
+            EnTeoriaUsuarioLogueado = true;
             StateHasChanged();
             navigation.NavigateTo("Account/Register");
-            
         }
-        
     }
 
 
