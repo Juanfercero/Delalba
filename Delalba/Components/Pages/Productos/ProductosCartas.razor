@@ -10,99 +10,103 @@
         @if (item.Activado == true)
         {
             <div class="col-2 mb-2 mb-sm-2 me-5 d-lg-flex">
-                <div class="card" style="width: 18rem;">
-                    @switch (item.Nombre)
-                    {
-                        case "Almendras Peladas":
-                            <img src="/Imgs/Almendras.webp" alt="Imagen Almendras" class="card-img-top" />
-                            break;
-                        case "Castañas de Caju":
-                            <img src="/Imgs/Castañas.jpg" alt="Imagen Castañas" class="card-img-top" />
-                            break;
-                        case "Lentejas":
-                            <img src="/Imgs/Lentejas.jpg" alt="Imagen Lentejas" class="card-img-top" />
-                            break;
-                        case "Aceite de girasol":
-                            <img src="/Imgs/AceiteGirasol.webp" alt="Imagen Lentejas" class="card-img-top" />
-                            break;
-                        case "Harina de trigo 000":
-                            <img src="/Imgs/Harina000.webp" alt="Imagen Lentejas" class="card-img-top" />
-                            break;
-                        case "Harina de trigo 0000":
-                            <img src="/Imgs/Harina0000.webp" alt="Imagen Lentejas" class="card-img-top" />
-                            break;
-                        case "Mani tostado":
-                            <img src="/Imgs/Mani.jpg" alt="Imagen Lentejas" class="card-img-top" />
-                            break;
-                        case "Nueces":
-                            <img src="/Imgs/Nueces.webp" alt="Imagen Lentejas" class="card-img-top" />
-                            break;
-                        case "Pasas de uva":
-                            <img src="/Imgs/Pasas.jpg" alt="Imagen Lentejas" class="card-img-top" />
-                            break;
-                        case "Mix frutos secos con pasas":
-                            <img src="/Imgs/MixConPasas.jpg" alt="Imagen Lentejas" class="card-img-top" />
-                            break;
-                        case "Mix frutos secos sin pasas":
-                            <img src="/Imgs/MixSinPasas.webp" alt="Imagen Lentejas" class="card-img-top" />
-                            break;
-                        case "Copos de maíz":
-                            <img src="/Imgs/Copos.webp" alt="Imagen Lentejas" class="card-img-top" />
-                            break;
-                        case "Avena":
-                            <img src="/Imgs/Avena.jpg" alt="Imagen Lentejas" class="card-img-top" />
-                            break;
-                        case "Aceite de oliva":
-                            <img src="/Imgs/AceiteOliva.webp" alt="Imagen Lentejas" class="card-img-top" />
-                            break;
-                        case "Granola":
-                            <img src="/Imgs/Granola.webp" alt="Imagen Lentejas" class="card-img-top" />
-                            break;
-                        case "Stevia":
-                            <img src="/Imgs/stevia.jpg" alt="Imagen Lentejas" class="card-img-top" />
-                            break;
-                        case "Aceite de coco":
-                            <img src="/Imgs/AceiteCoco.webp" alt="Imagen Lentejas" class="card-img-top" />
-                            break;
-                        case "Azúcar":
-                            <img src="/Imgs/Azucar.webp" alt="Imagen Lentejas" class="card-img-top" />
-                            break;
-                        case "Harina integral":
-                            <img src="/Imgs/HarinaIntegral.webp" alt="Imagen Lentejas" class="card-img-top" />
-                            break;
-                        default:
-                            Console.WriteLine("Invalid Name");
-                            break;
-                    }
+                <div class="card CartaCarritoHov" style="width: 18rem;">
+                    <div class="FotoCarrito">
+                        @switch (item.Nombre){
+                            case "Almendras Peladas":
+                                <img src="/Imgs/Almendras.webp" alt="Imagen Almendras" class="card-img-top" />
+                                break;
+                            case "Castañas de Caju":
+                                <img src="/Imgs/Castañas.jpg" alt="Imagen Castañas" class="card-img-top" />
+                                break;
+                            case "Lentejas":
+                                <img src="/Imgs/Lentejas.jpg" alt="Imagen Lentejas" class="card-img-top" />
+                                break;
+                            case "Aceite de girasol":
+                                <img src="/Imgs/AceiteGirasol.webp" alt="Imagen Lentejas" class="card-img-top" />
+                                break;
+                            case "Harina de trigo 000":
+                                <img src="/Imgs/Harina000.webp" alt="Imagen Lentejas" class="card-img-top" />
+                                break;
+                            case "Harina de trigo 0000":
+                                <img src="/Imgs/Harina0000.webp" alt="Imagen Lentejas" class="card-img-top" />
+                                break;
+                            case "Mani tostado":
+                                <img src="/Imgs/Mani.jpg" alt="Imagen Lentejas" class="card-img-top" />
+                                break;
+                            case "Nueces":
+                                <img src="/Imgs/Nueces.webp" alt="Imagen Lentejas" class="card-img-top" />
+                                break;
+                            case "Pasas de uva":
+                                <img src="/Imgs/Pasas.jpg" alt="Imagen Lentejas" class="card-img-top" />
+                                break;
+                            case "Mix frutos secos con pasas":
+                                <img src="/Imgs/MixConPasas.jpg" alt="Imagen Lentejas" class="card-img-top" />
+                                break;
+                            case "Mix frutos secos sin pasas":
+                                <img src="/Imgs/MixSinPasas.webp" alt="Imagen Lentejas" class="card-img-top" />
+                                break;
+                            case "Copos de maíz":
+                                <img src="/Imgs/Copos.webp" alt="Imagen Lentejas" class="card-img-top" />
+                                break;
+                            case "Avena":
+                                <img src="/Imgs/Avena.jpg" alt="Imagen Lentejas" class="card-img-top" />
+                                break;
+                            case "Aceite de oliva":
+                                <img src="/Imgs/AceiteOliva.webp" alt="Imagen Lentejas" class="card-img-top" />
+                                break;
+                            case "Granola":
+                                <img src="/Imgs/Granola.webp" alt="Imagen Lentejas" class="card-img-top" />
+                                break;
+                            case "Stevia":
+                                <img src="/Imgs/stevia.jpg" alt="Imagen Lentejas" class="card-img-top" />
+                                break;
+                            case "Aceite de coco":
+                                <img src="/Imgs/AceiteCoco.webp" alt="Imagen Lentejas" class="card-img-top" />
+                                break;
+                            case "Azúcar":
+                                <img src="/Imgs/Azucar.webp" alt="Imagen Lentejas" class="card-img-top" />
+                                break;
+                            case "Harina integral":
+                                <img src="/Imgs/HarinaIntegral.webp" alt="Imagen Lentejas" class="card-img-top" />
+                                break;
+                            default:
+                                Console.WriteLine("Invalid Name");
+                                break;
+                        }
+                    </div>
                     <div class="card-body">
                         @if(ProductosDelMayorista == false){
-                            <h6 class="card-title">@item.Nombre</h6>
-                            <h5 class="card-text">$@item.Precio</h5>
+                            <div class="CartaCarrito">
+                                <h6 class="card-title">@item.Nombre</h6>
+                            </div>
+                            <div class="CartaCarrito">
+                                <h5 class="card-text">$@item.Precio</h5>
+                            </div>
                         }
                         else{
                             int May = item.Precio * 9;
-                            <h6 class="card-title">@item.Nombre</h6>
-                            <h5 class="card-text">$@May</h5>
+                            <h6 class="card-title CartaCarrito">@item.Nombre</h6>
+                            <h5 class="card-text CartaCarrito">$@May</h5>
                         }
-
                         @if (ProductosDelMayorista == false)
                         {
                             @switch (item.Nombre)
                             {
                                 case "Aceite de girasol":
-                                    <p class="card-text">900ml</p>
+                                    <p class="card-text CartaCarrito">900ml</p>
                                     break;
                                 case "Aceite de oliva":
-                                    <p class="card-text">900ml</p>
+                                    <p class="card-text CartaCarrito">900ml</p>
                                     break;
                                 case "Stevia":
-                                    <p class="card-text">600ml</p>
+                                    <p class="card-text CartaCarrito">600ml</p>
                                     break;
                                 case "Aceite de coco":
-                                    <p class="card-text">500ml</p>
+                                    <p class="card-text CartaCarrito">500ml</p>
                                     break;
                                 default:
-                                    <p class="card-text">1 Kilo</p>
+                                    <p class="card-text CartaCarrito">1 Kilo</p>
                                     break;
                             }
                         }
@@ -111,23 +115,22 @@
                             @switch (item.Nombre)
                             {
                                 case "Aceite de girasol":
-                                    <p class="card-text">10 botellas de 900ml</p>
+                                    <p class="card-text CartaCarrito">10 botellas de 900ml</p>
                                     break;
                                 case "Aceite de oliva":
-                                    <p class="card-text">10 botellas de 900ml</p>
+                                    <p class="card-text CartaCarrito">10 botellas de 900ml</p>
                                     break;
                                 case "Stevia":
-                                    <p class="card-text">10 botellitas de 600ml</p>
+                                    <p class="card-text CartaCarrito">10 botellitas de 600ml</p>
                                     break;
                                 case "Aceite de coco":
-                                    <p class="card-text">10 frascos de 500ml</p>
+                                    <p class="card-text CartaCarrito">10 frascos de 500ml</p>
                                     break;
                                 default:
-                                    <p class="card-text">10 Kilos</p>
+                                    <p class="card-text CartaCarrito">10 Kilos</p>
                                     break;
                             }
                         }
-                        
                         <AuthorizeView>
                             <Authorized>
                                 <td>
@@ -277,3 +280,40 @@
     [Parameter]
     public EventCallback<ProductoEntity> LoginEvent { get; set; }
 }
+
+    <style>
+        .CartaCarrito{
+        display: flex;
+        justify-content: left;
+        align-items: flex-start;
+        }
+
+        .FotoCarrito:hover {
+        transform: scale(0.9);
+        transition-duration: 0.3s;
+        transition-timing-function: ease-out;
+        }
+
+        .FotoCarrito:hover ~ .FotoCarrito {
+        transition: transform 1s ease-in-out;
+    }
+
+    .FotoCarrito ~ .FotoCarrito {
+        transform: scale(1);
+    }
+
+        .CartaCarritoHov:hover{
+        transform: scale(1.03);
+        transition-duration: 0.3s;
+        transition-timing-function: ease-in-out;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .CartaCarritoHov:hover ~ .CartaCarritoHov {
+        transition: transform 1s ease-in-out;
+    }
+
+    .CartaCarritoHov ~ .CartaCarritoHov {
+        transform: scale(1);
+    }
+    </style>
