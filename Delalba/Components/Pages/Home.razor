@@ -19,7 +19,10 @@
 @*<hr /> *@
 
 <div class="busqueda-container">
-    <input type="text" class="busqueda-input" placeholder="Buscar producto..." @bind-value="filtroNombreProducto" />
+    <form @onsubmit="HandleSubmit">
+        <input type="text" class="busqueda-input" placeholder="@filtreEnBlanco" @bind-value="filtroNombreProducto" />
+    </form>
+    @* <input type="text" class="busqueda-input" placeholder="Buscar producto..." @bind-value="filtroNombreProducto" /> *@
     <button type="button" class="btn btn-buscar" @onclick="BuscarProducto">🔍 Buscar</button>
     <button type="button" class="btn btn-carrito" @onclick="OpenCarrito">🛒 Carrito</button>
 </div>
@@ -203,15 +206,15 @@
         <ul class="nav nav-tabs card-header-tabs justify-content-center little-left little-pad">
             <li class="nav-item">
                 <a class="nav-link @MinoristaActivo text-success fw-bold"
-                   aria-current="@AreaMinorista"
-                   @onclick="() => Minorista()">
+                aria-current="@AreaMinorista"
+                @onclick="() => Minorista()">
                     🌿 Minorista
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link @MayoristaActivo text-success fw-bold"
-                   aria-current="@AreaMayorista"
-                   @onclick="() => Mayorista()">
+                aria-current="@AreaMayorista"
+                @onclick="() => Mayorista()">
                     🛒 Mayorista
                 </a>
             </li>
@@ -221,9 +224,9 @@
         <p class="text-muted little-little-left"><i class="fas fa-seedling"></i> ¡Disfruta de productos frescos y orgánicos!</p>
         @* <h5 class="card-title text-success mb-4 little-left">Nuestros Productos</h5> *@
         <ProductosCartas Datos="@ProductosList"
-                         AñadirAlCarritoEvent="AñadirAlCarrito"
-                         LoginEvent="Login"
-                         ProductosDelMayorista="ProductosDelMayoristaAhora">
+        AñadirAlCarritoEvent="AñadirAlCarrito"
+        LoginEvent="Login"
+        ProductosDelMayorista="ProductosDelMayoristaAhora">
         </ProductosCartas>
     </div>
 </div>
@@ -276,10 +279,18 @@
 
     //BUSCAR
     public string filtroNombreProducto = "";
+    public string filtreEnBlanco = "Buscar producto...";
 
-    private void BuscarProducto()
+    private async Task HandleSubmit()
+    {
+        await BuscarProducto();
+    }
+
+    private async Task BuscarProducto()
     {
         GetData();
+
+        filtreEnBlanco = "Pulse enter para buscar todos los productos";
 
         ProductosList.Select(c => new ProductoEntity()
             {
@@ -293,6 +304,10 @@
             ProductosList = ProductosList.Where(c => c.Nombre.Contains(filtroNombreProducto)).ToList();
         }
 
+        if(filtroNombreProducto == "")
+        {
+            filtreEnBlanco = "Buscar producto...";
+        }
         //if (filtroNombreProducto != "")
         //{
         //    ProductosList = ProductosList.Where(c => c.Nombre == filtroNombreProducto).ToList();
@@ -514,7 +529,7 @@
 
     /* Estilo para el input de búsqueda */
     .busqueda-input {
-        width: 300px;
+        width: 400px;
         padding: 10px 15px;
         font-size: 1rem;
         border: 2px solid #81c784; /* Borde verde suave */
@@ -545,7 +560,7 @@
     }
 
         .btn-carrito{
-        margin-right: 105px;
+        margin-right: 120px;
         }
 
         .btn-buscar:hover, .btn-carrito:hover {
