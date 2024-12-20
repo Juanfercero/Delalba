@@ -60,7 +60,15 @@
                             {
                                 <tr>
                                     <td>@item.Nombre</td>
-                                    <td class="text-success">$@item.Precio</td>
+                                    @if(ProductosDelMayoristaAhora == true){
+
+                                        int NuevoPrecio = item.Precio * 8;
+                                        <td class="text-success">$@NuevoPrecio</td>
+                                    }
+                                    else{
+                                        <td class="text-success">$@item.Precio</td>
+                                    }
+
                                     <td>
                                         <button type="button" class="btn btn-outline-danger btn-sm"
                                         @onclick="() => EliminarProducto(item)">
@@ -74,7 +82,15 @@
                         <tfoot>
                             <tr class="fw-bold">
                                 <td>Total:</td>
-                                <td class="text-success">$@PrecioTotal</td>
+                                @if (ProductosDelMayoristaAhora == true)
+                                {
+                                    int PrecioTotalMayorista = PrecioTotal * 8;
+                                    <td class="text-success">$@PrecioTotalMayorista</td>
+                                }
+                                else
+                                {
+                                    <td class="text-success">$@PrecioTotal</td>
+                                }
                                 <td></td>
                             </tr>
                         </tfoot>
@@ -394,6 +410,7 @@
     private void AñadirAlCarrito(ProductoEntity productoCarrito)
     {
         ProductoCarrito = productoCarrito;
+
         CarritoList.Add(ProductoCarrito);
         CarritoNoNull = true;
         context.SaveChanges();
