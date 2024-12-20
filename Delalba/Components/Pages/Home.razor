@@ -180,9 +180,9 @@
     </div>
 </div>
 
-<br />
+@* <br /> *@
 
-<div class="card text-center">
+@* <div class="card text-center">
     <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
@@ -196,7 +196,38 @@
     <div class="card-body">
         <ProductosCartas Datos="@ProductosList" AñadirAlCarritoEvent="AñadirAlCarrito" LoginEvent="Login" ProductosDelMayorista="ProductosDelMayoristaAhora"></ProductosCartas>
     </div>
+</div> *@
+
+<div class="card text-center shadow rounded border-0" style="background-color: #f9f7f1;">
+    <div class="card-header border-0 rounded-top bg-green">
+        <ul class="nav nav-tabs card-header-tabs justify-content-center little-left little-pad">
+            <li class="nav-item">
+                <a class="nav-link @MinoristaActivo text-success fw-bold"
+                   aria-current="@AreaMinorista"
+                   @onclick="() => Minorista()">
+                    🌿 Minorista
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @MayoristaActivo text-success fw-bold"
+                   aria-current="@AreaMayorista"
+                   @onclick="() => Mayorista()">
+                    🛒 Mayorista
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body p-4">
+        <p class="text-muted little-little-left"><i class="fas fa-seedling"></i> ¡Disfruta de productos frescos y orgánicos!</p>
+        @* <h5 class="card-title text-success mb-4 little-left">Nuestros Productos</h5> *@
+        <ProductosCartas Datos="@ProductosList"
+                         AñadirAlCarritoEvent="AñadirAlCarrito"
+                         LoginEvent="Login"
+                         ProductosDelMayorista="ProductosDelMayoristaAhora">
+        </ProductosCartas>
+    </div>
 </div>
+
 
 @* <ProductosCartas Datos="@ProductosList" AñadirAlCarritoEvent="AñadirAlCarrito" LoginEvent="Login"></ProductosCartas> *@
 
@@ -441,7 +472,7 @@
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 3rem; /* Tamaño del texto */
         text-align: center;
-        margin-right: 180px;
+        margin-right: 150px;
         color: #2e7d32; /* Verde natural */
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         margin-bottom: 1rem;
@@ -514,7 +545,7 @@
     }
 
         .btn-carrito{
-        margin-right: 135px;
+        margin-right: 105px;
         }
 
         .btn-buscar:hover, .btn-carrito:hover {
@@ -525,5 +556,47 @@
         .btn-buscar:active, .btn-carrito:active {
             transform: scale(0.95); /* Pequeño efecto de presión */
         }
+
+    /* Mayorista Minorista */
+    .card {
+        
+    }
+
+        .card:hover {
+        }
+
+        .little-pad{
+            padding-bottom: 4px;
+        /* padding: 4px 0px; */
+        }
+
+    .nav-tabs .nav-link {
+        border-radius: 10px;
+        padding: 10px 50px;
+    }
+
+        .nav-tabs .nav-link.active {
+            background-color: #e8f5e9; /* Verde suave */
+            border: 1px solid #81c784; /* Borde verde */
+        }
+
+    .card-body {
+        background-image: url('https://example.com/diet-shop-bg.jpg');
+        background-size: cover;
+        background-blend-mode: lighten;
+        border-radius: 10px;
+    }
+
+    .little-left{
+        margin-right: 80px;
+    }
+
+    .little-little-left {
+        margin-right: 90px;
+    }
+
+    .bg-green{
+        background-color: rgba(1, 97, 14, 0.1);
+    }
 
 </style>
