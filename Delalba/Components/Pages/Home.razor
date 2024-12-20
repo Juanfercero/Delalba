@@ -33,6 +33,19 @@
 <button type="button" class="btn btn-primary" @onclick="BuscarProducto"> Buscar </button>
 <button type="button" class="btn btn-primary" @onclick="OpenCarrito"> 🛒 Su Carrito </button> *@
 
+@* ANIMACION DE ESPERA DE MAIL *@
+<div class="spinner-container" style="display: @(mostrandoSpinner ? "block" : "none")">
+    <i class="fas fa-spinner fa-spin fa-2x text-primary"></i>
+    <p>Enviando pedido...</p>
+</div>
+@if (pedidoConfirmado)
+{
+    <div class="alert alert-success mt-3" role="alert">
+        ¡Se confirmó su pedido y el correo ha sido enviado!
+    </div>
+}
+
+
 <hr style="color:green"/>
 
 @* Modal de Carrito Nuevo *@
@@ -198,6 +211,8 @@
         </div>
     </div>
 </div>
+
+
 
 @* <br /> *@
 
@@ -365,6 +380,10 @@
     private string StyleDisplayConfirmacion = "none";
     public static string ProductosMail = "";
 
+    //Animacion
+    private bool mostrandoSpinner = false;
+    private bool pedidoConfirmado = false;
+
     public void OpenConfirmacion()
     {
         StatusConfirmacion = "show";
@@ -381,8 +400,11 @@
         StateHasChanged();
     }
 
-    public void ConfirmarPedido()
+    // public void ConfirmarPedido()
+    public async Task ConfirmarPedido()
     {
+        
+
         StatusConfirmacion = "fade";
         StyleDisplayConfirmacion = "none";
 
@@ -397,6 +419,18 @@
         CarritoList.Clear();
         ProductosMail = "";
         StateHasChanged();
+
+        try
+        {
+            // Mostrar la animación
+            mostrandoSpinner = true;
+            await Task.Delay(2000); // Simular envío
+            pedidoConfirmado = true; // Mostrar mensaje de éxito
+        }
+        finally
+        {
+            mostrandoSpinner = false;
+        }
     }
 
     //VARIABLES

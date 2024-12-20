@@ -24,7 +24,13 @@
 
 <PageTitle>Register</PageTitle>
 
-<h1>Register</h1>
+<h1>Registro</h1>
+@* <h1>Register</h1> *@
+
+<div class="spinner-container" style="display: @(mostrandoSpinner ? "block" : "none")">
+    <i class="fas fa-spinner fa-spin fa-2x text-primary"></i>
+    <p>Enviando Mail de confirmación...</p>
+</div>
 
 <div class="row">
     <div class="col-md-4">
@@ -61,8 +67,9 @@
     </div>
 </div>
 
-
 @code {
+    //Animation del spinner
+    private bool mostrandoSpinner = false;
 
     private IEnumerable<IdentityError>? identityErrors;
 
@@ -86,9 +93,28 @@
         rolesList = RolesManager.Roles.ToList();
     }
 
+    //Animation
+    // public async Task Animation(){
+    //     try
+    //     {
+    //         // Mostrar la animación
+    //         mostrandoSpinner = true;
+    //         StateHasChanged();
+    //         await Task.Delay(2000); // Simular envío
+    //     }
+    //     finally
+    //     {
+    //         mostrandoSpinner = false;
+    //     }
+    // }
 
     public async Task RegisterUser(EditContext editContext)
     {
+        mostrandoSpinner = true;
+        StateHasChanged();
+        await Task.Delay(2000); // Simular envío
+        mostrandoSpinner = false;
+
         var user = CreateUser();
 
         await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
@@ -109,6 +135,8 @@
             await UserManager.AddToRoleAsync(user, Clientee);
         }
 
+        
+
         Logger.LogInformation("User created a new account with password.");
 
         var userId = await UserManager.GetUserIdAsync(user);
@@ -119,7 +147,6 @@
             new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code, ["returnUrl"] = ReturnUrl });
 
         await EmailSender.SendConfirmationLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
-
 
         
 

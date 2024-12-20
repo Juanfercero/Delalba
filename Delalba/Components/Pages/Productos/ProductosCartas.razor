@@ -145,7 +145,7 @@
                             <NotAuthorized>
                                 <td>
                                     @* <a href="#" class="btn btn-primary" @onclick="() => LoginEvent.InvokeAsync()">Añadir al Carrito</a> *@
-                                    <button class="btn btn-outline-success" @onclick="() => AñadirAlCarritoEvent.InvokeAsync(item)">
+                                    <button class="btn btn-outline-success" @onclick="() => LoginEvent.InvokeAsync()">
                                         <i class="fas fa-shopping-cart"></i> Añadir al Carrito
                                     </button>
                                 </td>
