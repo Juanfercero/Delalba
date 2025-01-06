@@ -37,7 +37,7 @@
         <StatusMessage Message="@Message" />
         <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
             <DataAnnotationsValidator />
-            <h2>Create a new account.</h2>
+            <h2>Crear una nueva cuenta</h2>
             <hr />
             <ValidationSummary class="text-danger" role="alert" />
             <div class="form-floating mb-3">
@@ -55,16 +55,22 @@
                 <label for="confirm-password">Confirm Password</label>
                 <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Registrarse</button>
         </EditForm>
     </div>
-    <div class="col-md-6 col-md-offset-2">
+    <p>
+        Si ya ha registrado su cuenta confirme el mail que enviamos a su correo y luego loguee su cuenta.
+    </p>
+    <p>
+        <a href="Account/ResendEmailConfirmation">Reenviar mail de confimación</a>
+    </p>
+    @* <div class="col-md-6 col-md-offset-2">
         <section>
             <h3>Use another service to register.</h3>
             <hr />
             <ExternalLoginPicker />
         </section>
-    </div>
+    </div> *@
 </div>
 
 @code {

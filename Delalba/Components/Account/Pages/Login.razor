@@ -19,7 +19,7 @@
             <StatusMessage Message="@errorMessage" />
             <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
                 <DataAnnotationsValidator />
-                <h2>Use a local account to log in.</h2>
+                <h2>Una vez creada su cuenta debe hacer el Log in</h2>
                 <hr />
                 <ValidationSummary class="text-danger" role="alert" />
                 <div class="form-floating mb-3">
@@ -42,26 +42,29 @@
                     <button type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
                 </div>
                 <div>
-                    <p>
-                        <a href="Account/ForgotPassword">Forgot your password?</a>
+                    @* <p>
+                        <a href="Account/ForgotPassword">Olvidaste tu contraseña?</a>
                     </p>
                     <p>
-                        <a href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">Register as a new user</a>
+                        <a href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">Registrarse como nuevo usuario</a>
+                    </p> *@
+                    <p>
+                        Si ya ha registrado su cuenta confirme el mail que enviamos a su correo y luego loguee su cuenta. 
                     </p>
                     <p>
-                        <a href="Account/ResendEmailConfirmation">Resend email confirmation</a>
+                        <a href="Account/ResendEmailConfirmation">Reenviar mail de confimación</a>
                     </p>
                 </div>
             </EditForm>
         </section>
     </div>
-    <div class="col-md-6 col-md-offset-2">
+    @* <div class="col-md-6 col-md-offset-2">
         <section>
             <h3>Use another service to log in.</h3>
             <hr />
             <ExternalLoginPicker />
         </section>
-    </div>
+    </div> *@
 </div>
 
 @code {
